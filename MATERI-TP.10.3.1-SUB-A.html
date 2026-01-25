@@ -1,0 +1,971 @@
+<!DOCTYPE html>
+<html lang="id" class="h-full">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Algoritma Dasar</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script src="/_sdk/element_sdk.js"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+  <style>
+    body {
+      box-sizing: border-box;
+    }
+    
+    .font-heading {
+      font-family: 'Space Grotesk', sans-serif;
+    }
+    
+    .font-mono {
+      font-family: 'JetBrains Mono', monospace;
+    }
+    
+    .gradient-bg {
+      background: linear-gradient(135deg, #0f172a 0%, #1e293b 50%, #0f172a 100%);
+    }
+    
+    .card-glow {
+      box-shadow: 0 0 40px rgba(59, 130, 246, 0.1);
+    }
+    
+    .flowchart-symbol {
+      transition: all 0.3s ease;
+    }
+    
+    .flowchart-symbol:hover {
+      transform: scale(1.05);
+    }
+    
+    .nav-dot {
+      transition: all 0.3s ease;
+    }
+    
+    .nav-dot.active {
+      width: 24px;
+      border-radius: 4px;
+    }
+    
+    @keyframes float {
+      0%, 100% { transform: translateY(0px); }
+      50% { transform: translateY(-10px); }
+    }
+    
+    .float-animation {
+      animation: float 3s ease-in-out infinite;
+    }
+    
+    @keyframes pulse-glow {
+      0%, 100% { box-shadow: 0 0 20px rgba(59, 130, 246, 0.3); }
+      50% { box-shadow: 0 0 40px rgba(59, 130, 246, 0.6); }
+    }
+    
+    .pulse-glow {
+      animation: pulse-glow 2s ease-in-out infinite;
+    }
+    
+    .section-fade {
+      opacity: 0;
+      transform: translateY(20px);
+      transition: all 0.6s ease;
+    }
+    
+    .section-fade.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+    
+    .accordion-content {
+      max-height: 0;
+      overflow: hidden;
+      transition: max-height 0.4s ease;
+    }
+    
+    .accordion-content.open {
+      max-height: 2000px;
+    }
+    
+    .tab-indicator {
+      transition: all 0.3s ease;
+    }
+  </style>
+</head>
+<body class="h-full gradient-bg text-gray-100 font-heading overflow-auto">
+  <div class="w-full min-h-full">
+    
+    <!-- Navigation -->
+    <nav class="fixed top-0 left-0 right-0 z-50 bg-slate-900/90 backdrop-blur-md border-b border-slate-700/50">
+      <div class="max-w-6xl mx-auto px-4 py-3 flex items-center justify-between">
+        <div class="flex items-center gap-3">
+          <div class="w-10 h-10 rounded-lg bg-gradient-to-br from-blue-500 to-cyan-400 flex items-center justify-center">
+            <svg class="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 3v2m6-2v2M9 19v2m6-2v2M5 9H3m2 6H3m18-6h-2m2 6h-2M7 19h10a2 2 0 002-2V7a2 2 0 00-2-2H7a2 2 0 00-2 2v10a2 2 0 002 2zM9 9h6v6H9V9z"/>
+            </svg>
+          </div>
+          <span id="nav-title" class="text-lg font-semibold text-white">Algoritma Dasar</span>
+        </div>
+        <div class="hidden md:flex items-center gap-6">
+          <a href="#intro" class="text-sm text-gray-300 hover:text-blue-400 transition-colors">Pengantar</a>
+          <a href="#bentuk" class="text-sm text-gray-300 hover:text-blue-400 transition-colors">Bentuk</a>
+          <a href="#aktivitas" class="text-sm text-gray-300 hover:text-blue-400 transition-colors">Aktivitas</a>
+          <a href="#penutup" class="text-sm text-gray-300 hover:text-blue-400 transition-colors">Penutup</a>
+        </div>
+        <button id="mobile-menu-btn" class="md:hidden p-2 text-gray-300 hover:text-white">
+          <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"/>
+          </svg>
+        </button>
+      </div>
+      <!-- Mobile Menu -->
+      <div id="mobile-menu" class="hidden md:hidden bg-slate-800 border-t border-slate-700">
+        <div class="px-4 py-3 space-y-2">
+          <a href="#intro" class="block py-2 text-gray-300 hover:text-blue-400">Pengantar</a>
+          <a href="#bentuk" class="block py-2 text-gray-300 hover:text-blue-400">Bentuk</a>
+          <a href="#aktivitas" class="block py-2 text-gray-300 hover:text-blue-400">Aktivitas</a>
+          <a href="#penutup" class="block py-2 text-gray-300 hover:text-blue-400">Penutup</a>
+        </div>
+      </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <header class="pt-24 pb-16 px-4 relative overflow-hidden">
+      <div class="absolute inset-0 opacity-30">
+        <div class="absolute top-20 left-10 w-72 h-72 bg-blue-500/20 rounded-full blur-3xl"></div>
+        <div class="absolute bottom-10 right-10 w-96 h-96 bg-cyan-500/20 rounded-full blur-3xl"></div>
+      </div>
+      <div class="max-w-4xl mx-auto text-center relative z-10">
+        <div class="inline-flex items-center gap-2 px-4 py-2 bg-blue-500/20 rounded-full text-blue-300 text-sm mb-6">
+          <span class="w-2 h-2 bg-blue-400 rounded-full animate-pulse"></span>
+          <span id="subtitle-display">Informatika Kelas 10</span>
+        </div>
+        <h1 id="main-title-display" class="text-4xl md:text-6xl font-bold mb-6 bg-gradient-to-r from-white via-blue-100 to-cyan-200 bg-clip-text text-transparent">
+          Algoritma Dasar
+        </h1>
+        <p class="text-lg md:text-xl text-gray-300 max-w-2xl mx-auto leading-relaxed">
+          Fondasi penting dalam membangun logika berpikir komputasional untuk pemrograman
+        </p>
+        
+        <!-- Floating Icons -->
+        <div class="flex justify-center gap-8 mt-12">
+          <div class="float-animation" style="animation-delay: 0s;">
+            <div class="w-16 h-16 bg-gradient-to-br from-blue-500 to-blue-600 rounded-2xl flex items-center justify-center shadow-lg">
+              <svg class="w-8 h-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2"/>
+              </svg>
+            </div>
+          </div>
+          <div class="float-animation" style="animation-delay: 0.5s;">
+            <div class="w-16 h-16 bg-gradient-to-br from-cyan-500 to-teal-500 rounded-2xl flex items-center justify-center shadow-lg">
+              <svg class="w-8 h-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 9l3 3-3 3m5 0h3M5 20h14a2 2 0 002-2V6a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"/>
+              </svg>
+            </div>
+          </div>
+          <div class="float-animation" style="animation-delay: 1s;">
+            <div class="w-16 h-16 bg-gradient-to-br from-purple-500 to-pink-500 rounded-2xl flex items-center justify-center shadow-lg">
+              <svg class="w-8 h-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"/>
+              </svg>
+            </div>
+          </div>
+        </div>
+      </div>
+    </header>
+
+    <!-- Introduction Section -->
+    <section id="intro" class="py-16 px-4 section-fade">
+      <div class="max-w-4xl mx-auto">
+        <div class="bg-slate-800/60 backdrop-blur-sm rounded-3xl p-8 md:p-12 border border-slate-700/50 card-glow">
+          <div class="flex items-center gap-3 mb-6">
+            <div class="w-12 h-12 rounded-xl bg-gradient-to-br from-blue-500 to-cyan-500 flex items-center justify-center">
+              <svg class="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/>
+              </svg>
+            </div>
+            <h2 class="text-2xl md:text-3xl font-bold text-white">Apa itu Algoritma?</h2>
+          </div>
+          
+          <div class="space-y-6 text-gray-300 leading-relaxed">
+            <p class="text-lg">
+              <span class="text-blue-400 font-semibold">Algoritma</span> merupakan langkah-langkah logis yang disusun secara sistematis untuk menyelesaikan masalah atau mencapai tujuan tertentu.
+            </p>
+            <p>
+              Konsep algoritma ini merupakan fondasi penting sebelum melangkah ke penerapan yang lebih kompleks seperti pemrograman berbasis teks, perbandingan algoritma, dan debugging. Pemahaman akan konsep algoritma dasar ini membantu membangun <span class="text-cyan-400 font-medium">logika berpikir komputasional</span> yang kuat saat menulis kode program.
+            </p>
+            
+            <!-- Key Points -->
+            <div class="grid md:grid-cols-2 gap-4 mt-8">
+              <div class="bg-slate-700/50 rounded-xl p-5 border border-slate-600/50 hover:border-blue-500/50 transition-colors">
+                <div class="flex items-start gap-3">
+                  <div class="w-8 h-8 rounded-lg bg-blue-500/20 flex items-center justify-center flex-shrink-0 mt-1">
+                    <span class="text-blue-400">📐</span>
+                  </div>
+                  <div>
+                    <h4 class="font-semibold text-white mb-1">Matematika</h4>
+                    <p class="text-sm text-gray-400">Rumus dan perhitungan sistematis</p>
+                  </div>
+                </div>
+              </div>
+              <div class="bg-slate-700/50 rounded-xl p-5 border border-slate-600/50 hover:border-cyan-500/50 transition-colors">
+                <div class="flex items-start gap-3">
+                  <div class="w-8 h-8 rounded-lg bg-cyan-500/20 flex items-center justify-center flex-shrink-0 mt-1">
+                    <span class="text-cyan-400">🔧</span>
+                  </div>
+                  <div>
+                    <h4 class="font-semibold text-white mb-1">Teknik</h4>
+                    <p class="text-sm text-gray-400">Prosedur perakitan dan konstruksi</p>
+                  </div>
+                </div>
+              </div>
+              <div class="bg-slate-700/50 rounded-xl p-5 border border-slate-600/50 hover:border-purple-500/50 transition-colors">
+                <div class="flex items-start gap-3">
+                  <div class="w-8 h-8 rounded-lg bg-purple-500/20 flex items-center justify-center flex-shrink-0 mt-1">
+                    <span class="text-purple-400">🍳</span>
+                  </div>
+                  <div>
+                    <h4 class="font-semibold text-white mb-1">Resep Masakan</h4>
+                    <p class="text-sm text-gray-400">Langkah-langkah memasak terurut</p>
+                  </div>
+                </div>
+              </div>
+              <div class="bg-slate-700/50 rounded-xl p-5 border border-slate-600/50 hover:border-pink-500/50 transition-colors">
+                <div class="flex items-start gap-3">
+                  <div class="w-8 h-8 rounded-lg bg-pink-500/20 flex items-center justify-center flex-shrink-0 mt-1">
+                    <span class="text-pink-400">💡</span>
+                  </div>
+                  <div>
+                    <h4 class="font-semibold text-white mb-1">Pengambilan Keputusan</h4>
+                    <p class="text-sm text-gray-400">Proses pemecahan masalah harian</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Bentuk Algoritma Section -->
+    <section id="bentuk" class="py-16 px-4 section-fade">
+      <div class="max-w-5xl mx-auto">
+        <div class="text-center mb-12">
+          <h2 class="text-3xl md:text-4xl font-bold text-white mb-4">Bentuk Algoritma Dasar</h2>
+          <p class="text-gray-400 max-w-2xl mx-auto">Algoritma dapat disajikan dalam berbagai format untuk memudahkan pemahaman</p>
+        </div>
+        
+        <!-- Tabs -->
+        <div class="bg-slate-800/60 backdrop-blur-sm rounded-3xl border border-slate-700/50 overflow-hidden">
+          <div class="flex border-b border-slate-700/50 overflow-x-auto">
+            <button class="tab-btn flex-1 min-w-max px-6 py-4 text-sm font-medium transition-all bg-blue-500/20 text-blue-400 border-b-2 border-blue-500" data-tab="naratif">
+              📝 Uraian Naratif
+            </button>
+            <button class="tab-btn flex-1 min-w-max px-6 py-4 text-sm font-medium transition-all text-gray-400 hover:text-gray-200 border-b-2 border-transparent" data-tab="pseudocode">
+              💻 Pseudocode
+            </button>
+            <button class="tab-btn flex-1 min-w-max px-6 py-4 text-sm font-medium transition-all text-gray-400 hover:text-gray-200 border-b-2 border-transparent" data-tab="ipo">
+              📊 Tabel IPO
+            </button>
+            <button class="tab-btn flex-1 min-w-max px-6 py-4 text-sm font-medium transition-all text-gray-400 hover:text-gray-200 border-b-2 border-transparent" data-tab="flowchart">
+              🔀 Flowchart
+            </button>
+          </div>
+          
+          <div class="p-6 md:p-8">
+            <!-- Naratif Tab -->
+            <div id="tab-naratif" class="tab-content">
+              <div class="flex flex-col md:flex-row gap-8">
+                <div class="flex-1">
+                  <h3 class="text-xl font-semibold text-white mb-4">Uraian Naratif</h3>
+                  <p class="text-gray-300 mb-6">Penjelasan langkah-langkah menggunakan bahasa sehari-hari yang mudah dipahami.</p>
+                  
+                  <div class="bg-slate-900/60 rounded-xl p-6 border border-slate-600/50">
+                    <h4 class="text-sm font-medium text-blue-400 mb-4">Contoh: Membuat Teh Manis</h4>
+                    <ol class="space-y-3 text-gray-300">
+                      <li class="flex items-start gap-3">
+                        <span class="w-6 h-6 rounded-full bg-blue-500/30 text-blue-400 text-xs flex items-center justify-center flex-shrink-0 mt-0.5">1</span>
+                        <span>Siapkan gelas dan air panas</span>
+                      </li>
+                      <li class="flex items-start gap-3">
+                        <span class="w-6 h-6 rounded-full bg-blue-500/30 text-blue-400 text-xs flex items-center justify-center flex-shrink-0 mt-0.5">2</span>
+                        <span>Masukkan kantong teh ke dalam gelas</span>
+                      </li>
+                      <li class="flex items-start gap-3">
+                        <span class="w-6 h-6 rounded-full bg-blue-500/30 text-blue-400 text-xs flex items-center justify-center flex-shrink-0 mt-0.5">3</span>
+                        <span>Tuangkan air panas ke dalam gelas</span>
+                      </li>
+                      <li class="flex items-start gap-3">
+                        <span class="w-6 h-6 rounded-full bg-blue-500/30 text-blue-400 text-xs flex items-center justify-center flex-shrink-0 mt-0.5">4</span>
+                        <span>Tunggu beberapa menit hingga teh larut</span>
+                      </li>
+                      <li class="flex items-start gap-3">
+                        <span class="w-6 h-6 rounded-full bg-blue-500/30 text-blue-400 text-xs flex items-center justify-center flex-shrink-0 mt-0.5">5</span>
+                        <span>Tambahkan gula sesuai selera dan aduk</span>
+                      </li>
+                      <li class="flex items-start gap-3">
+                        <span class="w-6 h-6 rounded-full bg-green-500/30 text-green-400 text-xs flex items-center justify-center flex-shrink-0 mt-0.5">✓</span>
+                        <span>Teh manis siap dinikmati</span>
+                      </li>
+                    </ol>
+                  </div>
+                </div>
+                <div class="w-full md:w-64 flex-shrink-0">
+                  <div class="bg-gradient-to-br from-blue-500/20 to-cyan-500/20 rounded-2xl p-6 border border-blue-500/30 h-full flex flex-col justify-center">
+                    <div class="text-4xl mb-4 text-center">📝</div>
+                    <h4 class="font-semibold text-white text-center mb-2">Kelebihan</h4>
+                    <ul class="text-sm text-gray-300 space-y-2">
+                      <li class="flex items-center gap-2">
+                        <span class="text-green-400">✓</span> Mudah dipahami
+                      </li>
+                      <li class="flex items-center gap-2">
+                        <span class="text-green-400">✓</span> Tidak perlu simbol khusus
+                      </li>
+                      <li class="flex items-center gap-2">
+                        <span class="text-green-400">✓</span> Fleksibel
+                      </li>
+                    </ul>
+                  </div>
+                </div>
+              </div>
+            </div>
+            
+            <!-- Pseudocode Tab -->
+            <div id="tab-pseudocode" class="tab-content hidden">
+              <div class="flex flex-col md:flex-row gap-8">
+                <div class="flex-1">
+                  <h3 class="text-xl font-semibold text-white mb-4">Pseudocode</h3>
+                  <p class="text-gray-300 mb-6">Kode semu yang menyerupai bahasa pemrograman namun lebih mudah dibaca manusia.</p>
+                  
+                  <div class="bg-slate-900 rounded-xl p-6 border border-slate-600/50 font-mono text-sm">
+                    <div class="flex items-center gap-2 mb-4 pb-3 border-b border-slate-700">
+                      <div class="w-3 h-3 rounded-full bg-red-500"></div>
+                      <div class="w-3 h-3 rounded-full bg-yellow-500"></div>
+                      <div class="w-3 h-3 rounded-full bg-green-500"></div>
+                      <span class="text-gray-500 text-xs ml-2">pseudocode.txt</span>
+                    </div>
+                    <pre class="text-gray-300 overflow-x-auto"><code><span class="text-purple-400">ALGORITMA</span> HitungLuasSegitiga
+<span class="text-purple-400">DEKLARASI</span>
+    alas, tinggi, luas : <span class="text-cyan-400">bilangan bulat</span>
+
+<span class="text-purple-400">MULAI</span>
+    <span class="text-green-400">// Input data</span>
+    <span class="text-yellow-400">INPUT</span> alas
+    <span class="text-yellow-400">INPUT</span> tinggi
+    
+    <span class="text-green-400">// Proses perhitungan</span>
+    luas ← (alas * tinggi) / 2
+    
+    <span class="text-green-400">// Output hasil</span>
+    <span class="text-yellow-400">OUTPUT</span> <span class="text-orange-400">"Luas segitiga adalah: "</span>, luas
+<span class="text-purple-400">SELESAI</span></code></pre>
+                  </div>
+                </div>
+                <div class="w-full md:w-64 flex-shrink-0">
+                  <div class="bg-gradient-to-br from-purple-500/20 to-pink-500/20 rounded-2xl p-6 border border-purple-500/30 h-full flex flex-col justify-center">
+                    <div class="text-4xl mb-4 text-center">💻</div>
+                    <h4 class="font-semibold text-white text-center mb-2">Kelebihan</h4>
+                    <ul class="text-sm text-gray-300 space-y-2">
+                      <li class="flex items-center gap-2">
+                        <span class="text-green-400">✓</span> Mirip kode asli
+                      </li>
+                      <li class="flex items-center gap-2">
+                        <span class="text-green-400">✓</span> Mudah diterjemahkan
+                      </li>
+                      <li class="flex items-center gap-2">
+                        <span class="text-green-400">✓</span> Terstruktur
+                      </li>
+                    </ul>
+                  </div>
+                </div>
+              </div>
+            </div>
+            
+            <!-- IPO Tab -->
+            <div id="tab-ipo" class="tab-content hidden">
+              <div class="flex flex-col gap-8">
+                <div>
+                  <h3 class="text-xl font-semibold text-white mb-4">Tabel Input-Proses-Output (IPO)</h3>
+                  <p class="text-gray-300 mb-6">Pemetaan data masuk, cara pengolahannya, dan hasil keluaran dalam bentuk tabel.</p>
+                </div>
+                
+                <div class="overflow-x-auto">
+                  <table class="w-full border-collapse">
+                    <thead>
+                      <tr>
+                        <th class="bg-blue-500/20 text-blue-400 font-semibold p-4 text-left rounded-tl-xl border border-slate-600/50">INPUT</th>
+                        <th class="bg-cyan-500/20 text-cyan-400 font-semibold p-4 text-left border border-slate-600/50">PROSES</th>
+                        <th class="bg-green-500/20 text-green-400 font-semibold p-4 text-left rounded-tr-xl border border-slate-600/50">OUTPUT</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr class="bg-slate-800/50">
+                        <td class="p-4 border border-slate-600/50 text-gray-300">
+                          <ul class="space-y-2">
+                            <li>• Nilai Matematika</li>
+                            <li>• Nilai B. Indonesia</li>
+                            <li>• Nilai B. Inggris</li>
+                          </ul>
+                        </td>
+                        <td class="p-4 border border-slate-600/50 text-gray-300">
+                          <div class="bg-slate-900/60 rounded-lg p-3 font-mono text-sm">
+                            rata_rata = (Nilai1 + Nilai2 + Nilai3) / 3
+                          </div>
+                        </td>
+                        <td class="p-4 border border-slate-600/50 text-gray-300 rounded-br-xl">
+                          <div class="flex items-center gap-2">
+                            <span class="text-2xl">📊</span>
+                            <span>Nilai Rata-rata</span>
+                          </div>
+                        </td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </div>
+                
+                <div class="grid md:grid-cols-3 gap-4">
+                  <div class="bg-blue-500/10 rounded-xl p-5 border border-blue-500/30">
+                    <h4 class="font-semibold text-blue-400 mb-2">📥 Input</h4>
+                    <p class="text-sm text-gray-400">Data yang dimasukkan ke dalam sistem</p>
+                  </div>
+                  <div class="bg-cyan-500/10 rounded-xl p-5 border border-cyan-500/30">
+                    <h4 class="font-semibold text-cyan-400 mb-2">⚙️ Proses</h4>
+                    <p class="text-sm text-gray-400">Langkah pengolahan data</p>
+                  </div>
+                  <div class="bg-green-500/10 rounded-xl p-5 border border-green-500/30">
+                    <h4 class="font-semibold text-green-400 mb-2">📤 Output</h4>
+                    <p class="text-sm text-gray-400">Hasil yang dikeluarkan sistem</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+            
+            <!-- Flowchart Tab -->
+            <div id="tab-flowchart" class="tab-content hidden">
+              <div class="flex flex-col gap-8">
+                <div>
+                  <h3 class="text-xl font-semibold text-white mb-4">Flowchart (Diagram Alir)</h3>
+                  <p class="text-gray-300 mb-6">Diagram alir yang menggunakan simbol-simbol standar untuk menggambarkan alur proses.</p>
+                </div>
+                
+                <div class="grid md:grid-cols-2 gap-8">
+                  <!-- Symbols -->
+                  <div class="space-y-4">
+                    <h4 class="font-semibold text-white mb-4">Simbol-simbol Flowchart:</h4>
+                    
+                    <div class="flowchart-symbol bg-slate-800/60 rounded-xl p-4 border border-slate-600/50 flex items-center gap-4">
+                      <div class="w-16 h-10 rounded-full bg-gradient-to-r from-green-500 to-green-600 flex items-center justify-center">
+                        <span class="text-white text-xs font-medium">Start/End</span>
+                      </div>
+                      <div>
+                        <h5 class="font-medium text-white">Terminator</h5>
+                        <p class="text-sm text-gray-400">Awal atau akhir program</p>
+                      </div>
+                    </div>
+                    
+                    <div class="flowchart-symbol bg-slate-800/60 rounded-xl p-4 border border-slate-600/50 flex items-center gap-4">
+                      <div class="w-16 h-10 bg-gradient-to-r from-blue-500 to-blue-600 flex items-center justify-center" style="clip-path: polygon(20% 0%, 100% 0%, 80% 100%, 0% 100%);">
+                        <span class="text-white text-xs font-medium">I/O</span>
+                      </div>
+                      <div>
+                        <h5 class="font-medium text-white">Input/Output</h5>
+                        <p class="text-sm text-gray-400">Data masuk atau keluar</p>
+                      </div>
+                    </div>
+                    
+                    <div class="flowchart-symbol bg-slate-800/60 rounded-xl p-4 border border-slate-600/50 flex items-center gap-4">
+                      <div class="w-16 h-10 bg-gradient-to-r from-purple-500 to-purple-600 flex items-center justify-center">
+                        <span class="text-white text-xs font-medium">Proses</span>
+                      </div>
+                      <div>
+                        <h5 class="font-medium text-white">Process</h5>
+                        <p class="text-sm text-gray-400">Pemrosesan data</p>
+                      </div>
+                    </div>
+                    
+                    <div class="flowchart-symbol bg-slate-800/60 rounded-xl p-4 border border-slate-600/50 flex items-center gap-4">
+                      <div class="w-14 h-14 bg-gradient-to-r from-yellow-500 to-orange-500 flex items-center justify-center" style="clip-path: polygon(50% 0%, 100% 50%, 50% 100%, 0% 50%);">
+                        <span class="text-white text-xs font-medium">?</span>
+                      </div>
+                      <div>
+                        <h5 class="font-medium text-white">Decision</h5>
+                        <p class="text-sm text-gray-400">Percabangan kondisi</p>
+                      </div>
+                    </div>
+                  </div>
+                  
+                  <!-- Example Flowchart -->
+                  <div class="bg-slate-900/60 rounded-xl p-6 border border-slate-600/50">
+                    <h4 class="font-medium text-gray-400 text-center mb-6">Contoh: Menentukan Bilangan Ganjil/Genap</h4>
+                    <div class="flex flex-col items-center gap-2">
+                      <div class="w-24 h-8 rounded-full bg-green-500 flex items-center justify-center text-white text-xs font-medium">Mulai</div>
+                      <div class="w-0.5 h-4 bg-gray-500"></div>
+                      <div class="w-32 h-8 bg-blue-500 flex items-center justify-center text-white text-xs" style="clip-path: polygon(10% 0%, 100% 0%, 90% 100%, 0% 100%);">Input: N</div>
+                      <div class="w-0.5 h-4 bg-gray-500"></div>
+                      <div class="w-20 h-20 bg-yellow-500 flex items-center justify-center text-white text-xs text-center font-medium" style="clip-path: polygon(50% 0%, 100% 50%, 50% 100%, 0% 50%);">N mod 2 = 0?</div>
+                      <div class="flex items-start gap-8">
+                        <div class="flex flex-col items-center">
+                          <span class="text-green-400 text-xs mb-1">Ya</span>
+                          <div class="w-0.5 h-4 bg-gray-500"></div>
+                          <div class="w-24 h-8 bg-blue-500 flex items-center justify-center text-white text-xs" style="clip-path: polygon(10% 0%, 100% 0%, 90% 100%, 0% 100%);">Genap</div>
+                        </div>
+                        <div class="flex flex-col items-center">
+                          <span class="text-red-400 text-xs mb-1">Tidak</span>
+                          <div class="w-0.5 h-4 bg-gray-500"></div>
+                          <div class="w-24 h-8 bg-blue-500 flex items-center justify-center text-white text-xs" style="clip-path: polygon(10% 0%, 100% 0%, 90% 100%, 0% 100%);">Ganjil</div>
+                        </div>
+                      </div>
+                      <div class="w-0.5 h-4 bg-gray-500"></div>
+                      <div class="w-24 h-8 rounded-full bg-red-500 flex items-center justify-center text-white text-xs font-medium">Selesai</div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Aktivitas Section -->
+    <section id="aktivitas" class="py-16 px-4 section-fade">
+      <div class="max-w-4xl mx-auto">
+        <div class="text-center mb-12">
+          <h2 class="text-3xl md:text-4xl font-bold text-white mb-4">🎯 Aktivitas Pembelajaran</h2>
+          <p class="text-gray-400">Praktikkan pemahamanmu melalui aktivitas berikut</p>
+        </div>
+        
+        <!-- Activity Accordions -->
+        <div class="space-y-4">
+          
+          <!-- Activity 1 -->
+          <div class="bg-slate-800/60 backdrop-blur-sm rounded-2xl border border-slate-700/50 overflow-hidden">
+            <button class="accordion-trigger w-full px-6 py-5 flex items-center justify-between text-left hover:bg-slate-700/30 transition-colors" data-accordion="activity1">
+              <div class="flex items-center gap-4">
+                <div class="w-12 h-12 rounded-xl bg-gradient-to-br from-blue-500 to-cyan-500 flex items-center justify-center text-white font-bold">01</div>
+                <div>
+                  <span class="text-xs text-blue-400 font-medium">AP-K10-01 • Kelompok</span>
+                  <h3 class="text-lg font-semibold text-white">Ayo Berdiskusi! - Langkah Menuju Sekolah</h3>
+                </div>
+              </div>
+              <svg class="accordion-icon w-5 h-5 text-gray-400 transform transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/>
+              </svg>
+            </button>
+            <div class="accordion-content" id="activity1">
+              <div class="px-6 pb-6 pt-2">
+                <div class="bg-slate-900/60 rounded-xl p-6 border border-slate-600/50">
+                  <div class="flex items-center gap-2 mb-4">
+                    <span class="text-2xl">👥</span>
+                    <span class="text-sm text-gray-400">Format: Kelompok (6-7 orang)</span>
+                  </div>
+                  
+                  <h4 class="font-semibold text-white mb-4">Instruksi Kerja:</h4>
+                  <ol class="space-y-4 text-gray-300">
+                    <li class="flex gap-3">
+                      <span class="w-6 h-6 rounded-full bg-blue-500/30 text-blue-400 text-xs flex items-center justify-center flex-shrink-0">1</span>
+                      <span>Tuliskan urutan langkah "Langkah Menuju Sekolah" dalam bentuk narasi. Dimulai dari saat <strong class="text-white">bangun tidur</strong> hingga <strong class="text-white">duduk di bangku kelas</strong>.</span>
+                    </li>
+                    <li class="flex gap-3">
+                      <span class="w-6 h-6 rounded-full bg-blue-500/30 text-blue-400 text-xs flex items-center justify-center flex-shrink-0">2</span>
+                      <span>Pilihlah satu orang perwakilan untuk membacakan algoritma yang telah kelompok kalian tulis di depan kelas.</span>
+                    </li>
+                    <li class="flex gap-3">
+                      <span class="w-6 h-6 rounded-full bg-blue-500/30 text-blue-400 text-xs flex items-center justify-center flex-shrink-0">3</span>
+                      <div>
+                        <span>Kelompok lain memperhatikan dan mengevaluasi dengan kriteria:</span>
+                        <ul class="mt-2 ml-4 space-y-1 text-sm text-gray-400">
+                          <li>a. Apakah langkahnya sudah logis dan tidak melompat-lompat?</li>
+                          <li>b. Apakah ada perbedaan langkah antar kelompok? Sebutkan!</li>
+                          <li>c. Apakah ada langkah yang dapat disederhanakan?</li>
+                        </ul>
+                      </div>
+                    </li>
+                  </ol>
+                  
+                  <div class="mt-6 p-4 bg-cyan-500/10 rounded-lg border border-cyan-500/30">
+                    <p class="text-cyan-400 text-sm">💬 <strong>Tanggapan:</strong> Kelompok lain dipersilakan untuk memberikan tanggapan dan mendiskusikannya bersama-sama.</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          
+          <!-- Activity 2 -->
+          <div class="bg-slate-800/60 backdrop-blur-sm rounded-2xl border border-slate-700/50 overflow-hidden">
+            <button class="accordion-trigger w-full px-6 py-5 flex items-center justify-between text-left hover:bg-slate-700/30 transition-colors" data-accordion="activity2">
+              <div class="flex items-center gap-4">
+                <div class="w-12 h-12 rounded-xl bg-gradient-to-br from-purple-500 to-pink-500 flex items-center justify-center text-white font-bold">02</div>
+                <div>
+                  <span class="text-xs text-purple-400 font-medium">AP-K10-02 • Individu</span>
+                  <h3 class="text-lg font-semibold text-white">Ayo Menganalisis! - Pilihan Jalur</h3>
+                </div>
+              </div>
+              <svg class="accordion-icon w-5 h-5 text-gray-400 transform transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/>
+              </svg>
+            </button>
+            <div class="accordion-content" id="activity2">
+              <div class="px-6 pb-6 pt-2">
+                <div class="bg-slate-900/60 rounded-xl p-6 border border-slate-600/50">
+                  <div class="bg-purple-500/10 rounded-lg p-4 border border-purple-500/30 mb-6">
+                    <h4 class="font-semibold text-purple-400 mb-2">📋 Studi Kasus:</h4>
+                    <p class="text-gray-300">Kamu biasanya bangun pukul <strong class="text-white">05.00</strong>. Jika bangun tepat waktu, kamu bisa sarapan dan jalan kaki. Namun, jika terlambat, kamu harus memilih:</p>
+                    <ul class="mt-2 ml-4 text-gray-300">
+                      <li>1. Naik sepeda jika tersedia, atau</li>
+                      <li>2. Berlari jika tidak ada sepeda</li>
+                    </ul>
+                  </div>
+                  
+                  <h4 class="font-semibold text-white mb-4">📝 Tugas:</h4>
+                  <p class="text-gray-300 mb-4">Susunlah dalam bentuk pseudocode menggunakan kondisi <span class="font-mono text-cyan-400 bg-slate-800 px-2 py-0.5 rounded">IF-THEN</span>.</p>
+                  
+                  <div class="bg-slate-800 rounded-xl p-4 font-mono text-sm">
+                    <div class="flex items-center gap-2 mb-3 pb-2 border-b border-slate-700">
+                      <div class="w-3 h-3 rounded-full bg-red-500"></div>
+                      <div class="w-3 h-3 rounded-full bg-yellow-500"></div>
+                      <div class="w-3 h-3 rounded-full bg-green-500"></div>
+                      <span class="text-gray-500 text-xs ml-2">contoh_jawaban.pseudo</span>
+                    </div>
+                    <pre class="text-gray-400 overflow-x-auto"><code><span class="text-gray-500">// Hint: Gunakan struktur seperti ini</span>
+<span class="text-purple-400">IF</span> (kondisi) <span class="text-purple-400">THEN</span>
+    aksi_jika_benar
+<span class="text-purple-400">ELSE</span>
+    <span class="text-purple-400">IF</span> (kondisi_lain) <span class="text-purple-400">THEN</span>
+        aksi_alternatif_1
+    <span class="text-purple-400">ELSE</span>
+        aksi_alternatif_2
+    <span class="text-purple-400">ENDIF</span>
+<span class="text-purple-400">ENDIF</span></code></pre>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          
+          <!-- Activity 3 -->
+          <div class="bg-slate-800/60 backdrop-blur-sm rounded-2xl border border-slate-700/50 overflow-hidden">
+            <button class="accordion-trigger w-full px-6 py-5 flex items-center justify-between text-left hover:bg-slate-700/30 transition-colors" data-accordion="activity3">
+              <div class="flex items-center gap-4">
+                <div class="w-12 h-12 rounded-xl bg-gradient-to-br from-green-500 to-teal-500 flex items-center justify-center text-white font-bold">03</div>
+                <div>
+                  <span class="text-xs text-green-400 font-medium">AP-K10-03 • Kelompok</span>
+                  <h3 class="text-lg font-semibold text-white">Ayo Berdiskusi! - Flowchart Nilai Rata-rata</h3>
+                </div>
+              </div>
+              <svg class="accordion-icon w-5 h-5 text-gray-400 transform transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/>
+              </svg>
+            </button>
+            <div class="accordion-content" id="activity3">
+              <div class="px-6 pb-6 pt-2">
+                <div class="bg-slate-900/60 rounded-xl p-6 border border-slate-600/50">
+                  <h4 class="font-semibold text-white mb-4">📊 Tugas:</h4>
+                  <p class="text-gray-300 mb-6">Buatlah flowchart berdasarkan logika berikut:</p>
+                  
+                  <div class="grid md:grid-cols-3 gap-4 mb-6">
+                    <div class="bg-blue-500/10 rounded-xl p-4 border border-blue-500/30">
+                      <h5 class="font-semibold text-blue-400 mb-2">📥 Input</h5>
+                      <ul class="text-sm text-gray-300 space-y-1">
+                        <li>• Nilai Matematika</li>
+                        <li>• Nilai B. Indonesia</li>
+                        <li>• Nilai B. Inggris</li>
+                      </ul>
+                    </div>
+                    <div class="bg-purple-500/10 rounded-xl p-4 border border-purple-500/30">
+                      <h5 class="font-semibold text-purple-400 mb-2">⚙️ Proses</h5>
+                      <p class="text-sm text-gray-300 font-mono">(Nilai1 + Nilai2 + Nilai3) / 3</p>
+                    </div>
+                    <div class="bg-green-500/10 rounded-xl p-4 border border-green-500/30">
+                      <h5 class="font-semibold text-green-400 mb-2">📤 Output</h5>
+                      <p class="text-sm text-gray-300">Tampilkan Nilai Rata-rata</p>
+                    </div>
+                  </div>
+                  
+                  <div class="p-4 bg-yellow-500/10 rounded-lg border border-yellow-500/30">
+                    <p class="text-yellow-400 text-sm">💡 <strong>Tips:</strong> Gunakan simbol-simbol flowchart yang sudah dipelajari: Terminator, Input/Output, dan Process.</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          
+          <!-- Activity 4 -->
+          <div class="bg-slate-800/60 backdrop-blur-sm rounded-2xl border border-slate-700/50 overflow-hidden">
+            <button class="accordion-trigger w-full px-6 py-5 flex items-center justify-between text-left hover:bg-slate-700/30 transition-colors" data-accordion="activity4">
+              <div class="flex items-center gap-4">
+                <div class="w-12 h-12 rounded-xl bg-gradient-to-br from-orange-500 to-red-500 flex items-center justify-center text-white font-bold">04</div>
+                <div>
+                  <span class="text-xs text-orange-400 font-medium">AP-K10-04 • Kelompok</span>
+                  <h3 class="text-lg font-semibold text-white">Ayo Mencoba! - Bermain Flowchart</h3>
+                </div>
+              </div>
+              <svg class="accordion-icon w-5 h-5 text-gray-400 transform transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/>
+              </svg>
+            </button>
+            <div class="accordion-content" id="activity4">
+              <div class="px-6 pb-6 pt-2">
+                <div class="bg-slate-900/60 rounded-xl p-6 border border-slate-600/50">
+                  <div class="flex items-center gap-2 mb-4">
+                    <span class="text-2xl">🎮</span>
+                    <span class="text-sm text-gray-400">Format: Permainan Kelompok</span>
+                  </div>
+                  
+                  <h4 class="font-semibold text-white mb-4">📜 Aturan Permainan:</h4>
+                  <div class="bg-gradient-to-r from-orange-500/10 to-red-500/10 rounded-xl p-5 border border-orange-500/30">
+                    <p class="text-gray-300 leading-relaxed">
+                      Setiap anggota kelompok maju secara bergantian untuk menggambar <strong class="text-orange-400">satu simbol saja</strong> pada papan tulis hingga membentuk algoritma flowchart yang <strong class="text-white">utuh dan benar secara logika</strong>.
+                    </p>
+                  </div>
+                  
+                  <div class="mt-6 grid grid-cols-2 md:grid-cols-4 gap-3">
+                    <div class="bg-slate-800/60 rounded-lg p-3 text-center">
+                      <div class="w-10 h-6 mx-auto mb-2 rounded-full bg-green-500"></div>
+                      <span class="text-xs text-gray-400">Mulai</span>
+                    </div>
+                    <div class="bg-slate-800/60 rounded-lg p-3 text-center">
+                      <div class="w-10 h-6 mx-auto mb-2 bg-blue-500" style="clip-path: polygon(15% 0%, 100% 0%, 85% 100%, 0% 100%);"></div>
+                      <span class="text-xs text-gray-400">I/O</span>
+                    </div>
+                    <div class="bg-slate-800/60 rounded-lg p-3 text-center">
+                      <div class="w-10 h-6 mx-auto mb-2 bg-purple-500"></div>
+                      <span class="text-xs text-gray-400">Proses</span>
+                    </div>
+                    <div class="bg-slate-800/60 rounded-lg p-3 text-center">
+                      <div class="w-8 h-8 mx-auto mb-2 bg-yellow-500" style="clip-path: polygon(50% 0%, 100% 50%, 50% 100%, 0% 50%);"></div>
+                      <span class="text-xs text-gray-400">Keputusan</span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          
+        </div>
+      </div>
+    </section>
+
+    <!-- Closing Section -->
+    <section id="penutup" class="py-16 px-4 section-fade">
+      <div class="max-w-3xl mx-auto">
+        <div class="bg-gradient-to-br from-blue-500/20 via-purple-500/20 to-cyan-500/20 rounded-3xl p-8 md:p-12 border border-slate-600/50 text-center pulse-glow">
+          <div class="w-20 h-20 mx-auto mb-6 rounded-2xl bg-gradient-to-br from-blue-500 to-cyan-500 flex items-center justify-center">
+            <svg class="w-10 h-10 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z"/>
+            </svg>
+          </div>
+          
+          <h2 class="text-2xl md:text-3xl font-bold text-white mb-6">💡 Pesan Penutup</h2>
+          
+          <div class="bg-slate-900/60 rounded-2xl p-6 border border-slate-600/50 mb-6">
+            <p class="text-lg text-gray-200 leading-relaxed">
+              Ingatlah bahwa proses menerjemahkan algoritma ke dalam instruksi yang dipahami komputer dikenal sebagai <span class="text-cyan-400 font-semibold">Logika Pemrograman</span>.
+            </p>
+          </div>
+          
+          <p class="text-xl text-gray-300 italic">
+            "Sebelum menyentuh komputer, pastikan alur logika di pikiran kita sudah matang."
+          </p>
+          
+          <div class="flex justify-center gap-4 mt-8">
+            <div class="px-4 py-2 bg-blue-500/20 rounded-full text-blue-400 text-sm">
+              #Algoritma
+            </div>
+            <div class="px-4 py-2 bg-purple-500/20 rounded-full text-purple-400 text-sm">
+              #Informatika
+            </div>
+            <div class="px-4 py-2 bg-cyan-500/20 rounded-full text-cyan-400 text-sm">
+              #Kelas10
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="py-8 px-4 border-t border-slate-800">
+      <div class="max-w-4xl mx-auto text-center">
+        <p class="text-gray-500 text-sm">© 2024 Materi Algoritma Dasar • Informatika Kelas 10</p>
+      </div>
+    </footer>
+    
+  </div>
+
+  <script>
+    const defaultConfig = {
+      main_title: 'Algoritma Dasar',
+      subtitle: 'Informatika Kelas 10',
+      background_color: '#0f172a',
+      surface_color: '#1e293b',
+      text_color: '#e2e8f0',
+      primary_action_color: '#3b82f6',
+      secondary_action_color: '#06b6d4'
+    };
+
+    function onConfigChange(config) {
+      const mainTitle = config.main_title || defaultConfig.main_title;
+      const subtitle = config.subtitle || defaultConfig.subtitle;
+      const bgColor = config.background_color || defaultConfig.background_color;
+      const surfaceColor = config.surface_color || defaultConfig.surface_color;
+      const textColor = config.text_color || defaultConfig.text_color;
+      const primaryColor = config.primary_action_color || defaultConfig.primary_action_color;
+      const secondaryColor = config.secondary_action_color || defaultConfig.secondary_action_color;
+
+      document.getElementById('main-title-display').textContent = mainTitle;
+      document.getElementById('subtitle-display').textContent = subtitle;
+      document.getElementById('nav-title').textContent = mainTitle;
+
+      document.body.style.setProperty('--bg-color', bgColor);
+      document.body.style.setProperty('--surface-color', surfaceColor);
+      document.body.style.setProperty('--text-color', textColor);
+      document.body.style.setProperty('--primary-color', primaryColor);
+      document.body.style.setProperty('--secondary-color', secondaryColor);
+    }
+
+    function mapToCapabilities(config) {
+      return {
+        recolorables: [
+          {
+            get: () => config.background_color || defaultConfig.background_color,
+            set: (value) => {
+              config.background_color = value;
+              window.elementSdk.setConfig({ background_color: value });
+            }
+          },
+          {
+            get: () => config.surface_color || defaultConfig.surface_color,
+            set: (value) => {
+              config.surface_color = value;
+              window.elementSdk.setConfig({ surface_color: value });
+            }
+          },
+          {
+            get: () => config.text_color || defaultConfig.text_color,
+            set: (value) => {
+              config.text_color = value;
+              window.elementSdk.setConfig({ text_color: value });
+            }
+          },
+          {
+            get: () => config.primary_action_color || defaultConfig.primary_action_color,
+            set: (value) => {
+              config.primary_action_color = value;
+              window.elementSdk.setConfig({ primary_action_color: value });
+            }
+          },
+          {
+            get: () => config.secondary_action_color || defaultConfig.secondary_action_color,
+            set: (value) => {
+              config.secondary_action_color = value;
+              window.elementSdk.setConfig({ secondary_action_color: value });
+            }
+          }
+        ],
+        borderables: [],
+        fontEditable: undefined,
+        fontSizeable: undefined
+      };
+    }
+
+    function mapToEditPanelValues(config) {
+      return new Map([
+        ['main_title', config.main_title || defaultConfig.main_title],
+        ['subtitle', config.subtitle || defaultConfig.subtitle]
+      ]);
+    }
+
+    // Initialize Element SDK
+    if (window.elementSdk) {
+      window.elementSdk.init({
+        defaultConfig,
+        onConfigChange,
+        mapToCapabilities,
+        mapToEditPanelValues
+      });
+    }
+
+    // Tab functionality
+    const tabBtns = document.querySelectorAll('.tab-btn');
+    const tabContents = document.querySelectorAll('.tab-content');
+
+    tabBtns.forEach(btn => {
+      btn.addEventListener('click', () => {
+        const tabId = btn.dataset.tab;
+        
+        tabBtns.forEach(b => {
+          b.classList.remove('bg-blue-500/20', 'text-blue-400', 'border-blue-500');
+          b.classList.add('text-gray-400', 'border-transparent');
+        });
+        
+        btn.classList.remove('text-gray-400', 'border-transparent');
+        btn.classList.add('bg-blue-500/20', 'text-blue-400', 'border-blue-500');
+        
+        tabContents.forEach(content => {
+          content.classList.add('hidden');
+        });
+        
+        document.getElementById(`tab-${tabId}`).classList.remove('hidden');
+      });
+    });
+
+    // Accordion functionality
+    const accordionTriggers = document.querySelectorAll('.accordion-trigger');
+
+    accordionTriggers.forEach(trigger => {
+      trigger.addEventListener('click', () => {
+        const accordionId = trigger.dataset.accordion;
+        const content = document.getElementById(accordionId);
+        const icon = trigger.querySelector('.accordion-icon');
+        
+        content.classList.toggle('open');
+        icon.classList.toggle('rotate-180');
+      });
+    });
+
+    // Mobile menu toggle
+    const mobileMenuBtn = document.getElementById('mobile-menu-btn');
+    const mobileMenu = document.getElementById('mobile-menu');
+
+    mobileMenuBtn.addEventListener('click', () => {
+      mobileMenu.classList.toggle('hidden');
+    });
+
+    // Close mobile menu when clicking a link
+    mobileMenu.querySelectorAll('a').forEach(link => {
+      link.addEventListener('click', () => {
+        mobileMenu.classList.add('hidden');
+      });
+    });
+
+    // Section fade-in on scroll
+    const observerOptions = {
+      threshold: 0.1,
+      rootMargin: '0px 0px -50px 0px'
+    };
+
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('visible');
+        }
+      });
+    }, observerOptions);
+
+    document.querySelectorAll('.section-fade').forEach(section => {
+      observer.observe(section);
+    });
+
+    // Smooth scrolling for anchor links
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+      anchor.addEventListener('click', function(e) {
+        e.preventDefault();
+        const target = document.querySelector(this.getAttribute('href'));
+        if (target) {
+          target.scrollIntoView({
+            behavior: 'smooth',
+            block: 'start'
+          });
+        }
+      });
+    });
+  </script>
+</body>
+</html>

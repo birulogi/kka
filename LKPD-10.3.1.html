@@ -1,0 +1,885 @@
+<!doctype html>
+<html lang="id" class="h-full">
+ <head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>LKPD - Algoritma &amp; Flowchart</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script src="/_sdk/element_sdk.js"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&amp;family=JetBrains+Mono:wght@400;500&amp;display=swap" rel="stylesheet">
+  <style>
+    body {
+      box-sizing: border-box;
+      font-family: 'Plus Jakarta Sans', sans-serif;
+    }
+    .mono-font {
+      font-family: 'JetBrains Mono', monospace;
+    }
+    .gradient-header {
+      background: linear-gradient(135deg, #1e3a5f 0%, #2d5a87 50%, #3d7ab5 100%);
+    }
+    .card-shadow {
+      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08), 0 2px 8px rgba(0, 0, 0, 0.04);
+    }
+    .activity-card {
+      transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+      border-left: 4px solid transparent;
+    }
+    .activity-card:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 8px 30px rgba(0, 0, 0, 0.12);
+    }
+    .activity-card.activity-1 { border-left-color: #10b981; }
+    .activity-card.activity-2 { border-left-color: #f59e0b; }
+    .activity-card.activity-3 { border-left-color: #8b5cf6; }
+    .activity-card.activity-4 { border-left-color: #ec4899; }
+    .input-field {
+      transition: all 0.2s ease;
+      border: 2px solid #e5e7eb;
+    }
+    .input-field:focus {
+      border-color: #3d7ab5;
+      box-shadow: 0 0 0 3px rgba(61, 122, 181, 0.1);
+      outline: none;
+    }
+    .textarea-field {
+      resize: vertical;
+      min-height: 100px;
+    }
+    .code-block {
+      background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%);
+      border-radius: 12px;
+      overflow: hidden;
+    }
+    .code-line {
+      transition: background 0.2s ease;
+    }
+    .code-line:hover {
+      background: rgba(255, 255, 255, 0.05);
+    }
+    .nav-tab {
+      transition: all 0.3s ease;
+      position: relative;
+    }
+    .nav-tab.active {
+      background: white;
+      color: #1e3a5f;
+      font-weight: 600;
+    }
+    .nav-tab.active::after {
+      content: '';
+      position: absolute;
+      bottom: -2px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 40px;
+      height: 3px;
+      background: #10b981;
+      border-radius: 2px;
+    }
+    .member-card {
+      background: linear-gradient(135deg, #f8fafc 0%, #f1f5f9 100%);
+      transition: all 0.2s ease;
+    }
+    .member-card:hover {
+      background: linear-gradient(135deg, #f1f5f9 0%, #e2e8f0 100%);
+    }
+    .role-badge {
+      font-size: 0.65rem;
+      padding: 2px 8px;
+      border-radius: 20px;
+      font-weight: 600;
+      letter-spacing: 0.5px;
+    }
+    .progress-ring {
+      transform: rotate(-90deg);
+    }
+    .flowchart-symbol {
+      transition: all 0.3s ease;
+      cursor: pointer;
+    }
+    .flowchart-symbol:hover {
+      transform: scale(1.05);
+      filter: drop-shadow(0 4px 8px rgba(0, 0, 0, 0.15));
+    }
+    .checkbox-custom {
+      appearance: none;
+      width: 22px;
+      height: 22px;
+      border: 2px solid #cbd5e1;
+      border-radius: 6px;
+      cursor: pointer;
+      transition: all 0.2s ease;
+      position: relative;
+    }
+    .checkbox-custom:checked {
+      background: #10b981;
+      border-color: #10b981;
+    }
+    .checkbox-custom:checked::after {
+      content: '✓';
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      color: white;
+      font-size: 14px;
+      font-weight: bold;
+    }
+    .toast {
+      animation: slideIn 0.3s ease, fadeOut 0.3s ease 2.7s forwards;
+    }
+    @keyframes slideIn {
+      from { transform: translateY(-100%); opacity: 0; }
+      to { transform: translateY(0); opacity: 1; }
+    }
+    @keyframes fadeOut {
+      from { opacity: 1; }
+      to { opacity: 0; }
+    }
+    .pulse-dot {
+      animation: pulse 2s infinite;
+    }
+    @keyframes pulse {
+      0%, 100% { opacity: 1; }
+      50% { opacity: 0.5; }
+    }
+    .scroll-container {
+      scrollbar-width: thin;
+      scrollbar-color: #cbd5e1 transparent;
+    }
+    .scroll-container::-webkit-scrollbar {
+      width: 6px;
+    }
+    .scroll-container::-webkit-scrollbar-thumb {
+      background: #cbd5e1;
+      border-radius: 3px;
+    }
+  </style>
+  <style>@view-transition { navigation: auto; }</style>
+  <script src="/_sdk/data_sdk.js" type="text/javascript"></script>
+ </head>
+ <body class="h-full bg-slate-50">
+  <div id="app-wrapper" class="h-full w-full overflow-auto scroll-container"><!-- Toast Container -->
+   <div id="toast-container" class="fixed top-4 right-4 z-50"></div><!-- Header -->
+   <header class="gradient-header text-white sticky top-0 z-40">
+    <div class="max-w-6xl mx-auto px-4 py-5">
+     <div class="flex items-center justify-between">
+      <div class="flex items-center gap-4">
+       <div class="w-12 h-12 bg-white/20 rounded-xl flex items-center justify-center backdrop-blur-sm">
+        <svg class="w-7 h-7" fill="none" stroke="currentColor" viewbox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-6 9l2 2 4-4" />
+        </svg>
+       </div>
+       <div>
+        <h1 id="main-title" class="text-xl font-bold tracking-tight">LEMBAR KERJA PESERTA DIDIK</h1>
+        <p id="subject-name" class="text-blue-100 text-sm font-medium">Koding dan Kecerdasan Artifisial (KKA)</p>
+       </div>
+      </div>
+      <div class="flex items-center gap-3">
+       <div class="bg-white/20 backdrop-blur-sm px-4 py-2 rounded-lg">
+        <p class="text-xs text-blue-100">Materi</p>
+        <p class="font-semibold text-sm">Algoritma Dasar</p>
+       </div>
+       <div id="week-badge" class="bg-emerald-400 text-emerald-900 px-4 py-2 rounded-lg font-bold text-sm">
+        Minggu 1
+       </div><button onclick="printPage()" class="py-2.5 px-4 bg-gradient-to-r from-blue-500 to-blue-600 hover:from-blue-600 hover:to-blue-700 text-white font-semibold rounded-lg flex items-center justify-center gap-2 transition-all duration-300 whitespace-nowrap">
+        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewbox="0 0 24 24">
+         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 17h2a2 2 0 002-2v-4a2 2 0 00-2-2H5a2 2 0 00-2 2v4a2 2 0 002 2h2m2 4h6a2 2 0 002-2v-4a2 2 0 00-2-2H9a2 2 0 00-2 2v4a2 2 0 002 2zm8-12V5a2 2 0 00-2-2H9a2 2 0 00-2 2v4h10z" />
+        </svg> Cetak (A4) </button>
+      </div>
+     </div>
+    </div><!-- Navigation Tabs -->
+    <nav class="max-w-6xl mx-auto px-4">
+     <div class="flex gap-1 bg-white/10 p-1 rounded-t-xl"><button onclick="showSection('info')" class="nav-tab active flex-1 px-4 py-2.5 rounded-lg text-sm font-medium text-white/80 hover:text-white" data-section="info"> 📋 Info Kelompok </button> <button onclick="showSection('aktivitas')" class="nav-tab flex-1 px-4 py-2.5 rounded-lg text-sm font-medium text-white/80 hover:text-white" data-section="aktivitas"> 📝 Aktivitas </button> <button onclick="showSection('evaluasi')" class="nav-tab flex-1 px-4 py-2.5 rounded-lg text-sm font-medium text-white/80 hover:text-white" data-section="evaluasi"> ✅ Evaluasi </button> <button onclick="showSection('panduan')" class="nav-tab flex-1 px-4 py-2.5 rounded-lg text-sm font-medium text-white/80 hover:text-white" data-section="panduan"> 📖 Panduan </button>
+     </div>
+    </nav>
+   </header><!-- Main Content -->
+   <main class="max-w-6xl mx-auto px-4 py-6"><!-- Progress Bar & Controls -->
+    <div class="bg-white rounded-2xl p-4 card-shadow mb-6">
+     <div class="flex items-center justify-between mb-4"><span class="text-sm font-semibold text-slate-700">Progress Pengerjaan</span> <span id="progress-text" class="text-sm font-bold text-emerald-600">0%</span>
+     </div>
+     <div class="h-3 bg-slate-100 rounded-full overflow-hidden mb-4">
+      <div id="progress-bar" class="h-full bg-gradient-to-r from-emerald-400 to-emerald-500 rounded-full transition-all duration-500" style="width: 0%"></div>
+     </div>
+    </div><!-- Section: Info Kelompok -->
+    <section id="section-info" class="space-y-6">
+     <div class="bg-white rounded-2xl p-6 card-shadow">
+      <h2 class="text-lg font-bold text-slate-800 mb-4 flex items-center gap-2"><span class="w-8 h-8 bg-blue-100 text-blue-600 rounded-lg flex items-center justify-center text-sm">👥</span> Informasi Kelompok</h2>
+      <div class="mb-6"><label class="block text-sm font-semibold text-slate-700 mb-2">Nama Kelompok</label> <input type="text" id="nama-kelompok" class="input-field w-full px-4 py-3 rounded-xl text-slate-800" placeholder="Masukkan nama kelompok...">
+      </div>
+      <h3 class="text-sm font-bold text-slate-700 mb-4 flex items-center gap-2"><span class="w-2 h-2 bg-emerald-500 rounded-full pulse-dot"></span> Anggota &amp; Peran</h3>
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4" id="members-container"><!-- Member 1: Driver -->
+       <div class="member-card rounded-xl p-4 border border-slate-200">
+        <div class="flex items-center justify-between mb-3"><span class="role-badge bg-emerald-100 text-emerald-700">🖥️ DRIVER</span> <span class="text-xs text-slate-400">#1</span>
+        </div><input type="text" class="input-field w-full px-3 py-2 rounded-lg text-sm member-input" placeholder="Nama anggota..." data-role="driver">
+        <p class="text-xs text-slate-500 mt-2">Pengetik Chromebook</p>
+       </div><!-- Member 2: Navigator 1 -->
+       <div class="member-card rounded-xl p-4 border border-slate-200">
+        <div class="flex items-center justify-between mb-3"><span class="role-badge bg-amber-100 text-amber-700">🧭 NAVIGATOR 1</span> <span class="text-xs text-slate-400">#2</span>
+        </div><input type="text" class="input-field w-full px-3 py-2 rounded-lg text-sm member-input" placeholder="Nama anggota..." data-role="nav1">
+        <p class="text-xs text-slate-500 mt-2">Logika &amp; Alur</p>
+       </div><!-- Member 3: Navigator 2 -->
+       <div class="member-card rounded-xl p-4 border border-slate-200">
+        <div class="flex items-center justify-between mb-3"><span class="role-badge bg-amber-100 text-amber-700">🧭 NAVIGATOR 2</span> <span class="text-xs text-slate-400">#3</span>
+        </div><input type="text" class="input-field w-full px-3 py-2 rounded-lg text-sm member-input" placeholder="Nama anggota..." data-role="nav2">
+        <p class="text-xs text-slate-500 mt-2">Logika &amp; Alur</p>
+       </div><!-- Member 4: Researcher -->
+       <div class="member-card rounded-xl p-4 border border-slate-200">
+        <div class="flex items-center justify-between mb-3"><span class="role-badge bg-purple-100 text-purple-700">📚 RESEARCHER</span> <span class="text-xs text-slate-400">#4</span>
+        </div><input type="text" class="input-field w-full px-3 py-2 rounded-lg text-sm member-input" placeholder="Nama anggota..." data-role="researcher">
+        <p class="text-xs text-slate-500 mt-2">Referensi Buku</p>
+       </div><!-- Member 5: Validator 1 -->
+       <div class="member-card rounded-xl p-4 border border-slate-200">
+        <div class="flex items-center justify-between mb-3"><span class="role-badge bg-rose-100 text-rose-700">✓ VALIDATOR 1</span> <span class="text-xs text-slate-400">#5</span>
+        </div><input type="text" class="input-field w-full px-3 py-2 rounded-lg text-sm member-input" placeholder="Nama anggota..." data-role="val1">
+        <p class="text-xs text-slate-500 mt-2">Cek Typo &amp; Simbol</p>
+       </div><!-- Member 6: Validator 2 -->
+       <div class="member-card rounded-xl p-4 border border-slate-200">
+        <div class="flex items-center justify-between mb-3"><span class="role-badge bg-rose-100 text-rose-700">✓ VALIDATOR 2</span> <span class="text-xs text-slate-400">#6</span>
+        </div><input type="text" class="input-field w-full px-3 py-2 rounded-lg text-sm member-input" placeholder="Nama anggota..." data-role="val2">
+        <p class="text-xs text-slate-500 mt-2">Cek Keselarasan</p>
+       </div>
+      </div><button onclick="addMember()" class="mt-4 w-full py-3 bg-gradient-to-r from-emerald-500 to-emerald-600 hover:from-emerald-600 hover:to-emerald-700 text-white font-semibold rounded-xl flex items-center justify-center gap-2 transition-all duration-300 shadow-lg hover:shadow-xl">
+       <svg class="w-5 h-5" fill="none" stroke="currentColor" viewbox="0 0 24 24">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4" />
+       </svg> Tambah Anggota Kelompok </button>
+     </div>
+    </section><!-- Section: Aktivitas -->
+    <section id="section-aktivitas" class="space-y-6 hidden"><!-- Aktivitas 1 -->
+     <div class="activity-card activity-1 bg-white rounded-2xl p-6 card-shadow">
+      <div class="flex items-start justify-between mb-4">
+       <div class="flex items-center gap-3"><span class="w-10 h-10 bg-emerald-100 text-emerald-600 rounded-xl flex items-center justify-center font-bold">1</span>
+        <div>
+         <h3 class="font-bold text-slate-800">Menyusun Algoritma Naratif</h3><span class="text-xs font-mono text-emerald-600 bg-emerald-50 px-2 py-0.5 rounded">AP-K10-01</span>
+        </div>
+       </div><input type="checkbox" class="checkbox-custom activity-check" data-activity="1">
+      </div>
+      <div class="bg-emerald-50 border border-emerald-200 rounded-xl p-4 mb-4">
+       <p class="text-sm text-emerald-800"><strong>📋 Instruksi:</strong> Susunlah langkah-langkah logis aktivitas <strong>"Langkah Menuju Sekolah"</strong> dari bangun tidur hingga duduk di kelas.</p>
+       <p class="text-xs text-emerald-600 mt-2">📱 Media: Google Docs di Chromebook</p>
+      </div><label class="block text-sm font-semibold text-slate-700 mb-2">Langkah-langkah Naratif:</label>
+      <div id="naratif-container" class="space-y-2">
+       <div class="flex items-center gap-2 naratif-step"><span class="w-7 h-7 bg-slate-100 rounded-lg flex items-center justify-center text-xs font-bold text-slate-500">1</span> <input type="text" class="input-field flex-1 px-3 py-2 rounded-lg text-sm naratif-input" placeholder="Langkah pertama...">
+       </div>
+       <div class="flex items-center gap-2 naratif-step"><span class="w-7 h-7 bg-slate-100 rounded-lg flex items-center justify-center text-xs font-bold text-slate-500">2</span> <input type="text" class="input-field flex-1 px-3 py-2 rounded-lg text-sm naratif-input" placeholder="Langkah kedua...">
+       </div>
+       <div class="flex items-center gap-2 naratif-step"><span class="w-7 h-7 bg-slate-100 rounded-lg flex items-center justify-center text-xs font-bold text-slate-500">3</span> <input type="text" class="input-field flex-1 px-3 py-2 rounded-lg text-sm naratif-input" placeholder="Langkah ketiga...">
+       </div>
+      </div><button onclick="addNaratifStep()" class="mt-3 text-sm text-emerald-600 hover:text-emerald-700 font-medium flex items-center gap-1">
+       <svg class="w-4 h-4" fill="none" stroke="currentColor" viewbox="0 0 24 24">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4" />
+       </svg> Tambah Langkah </button>
+     </div><!-- Aktivitas 2 -->
+     <div class="activity-card activity-2 bg-white rounded-2xl p-6 card-shadow">
+      <div class="flex items-start justify-between mb-4">
+       <div class="flex items-center gap-3"><span class="w-10 h-10 bg-amber-100 text-amber-600 rounded-xl flex items-center justify-center font-bold">2</span>
+        <div>
+         <h3 class="font-bold text-slate-800">Analisis Logika IF-THEN</h3><span class="text-xs font-mono text-amber-600 bg-amber-50 px-2 py-0.5 rounded">AP-K10-02</span>
+        </div>
+       </div><input type="checkbox" class="checkbox-custom activity-check" data-activity="2">
+      </div>
+      <div class="bg-amber-50 border border-amber-200 rounded-xl p-4 mb-4">
+       <p class="text-sm text-amber-800"><strong>📋 Instruksi:</strong> Ubahlah narasi berikut ke dalam bentuk <strong>Pseudocode</strong>.</p>
+       <div class="mt-3 p-3 bg-white rounded-lg border border-amber-300">
+        <p class="text-sm text-slate-700"><strong>Situasi:</strong> Kamu bangun pukul 05.00. Jika tepat waktu, kamu sarapan dan jalan kaki. Jika terlambat, pilih naik sepeda (jika ada) atau berlari (jika tidak ada).</p>
+       </div>
+      </div><label class="block text-sm font-semibold text-slate-700 mb-2">Pseudocode Kelompokmu:</label>
+      <div class="code-block p-4">
+       <div class="space-y-1 mono-font text-sm">
+        <div class="code-line flex items-center gap-2 p-2 rounded"><span class="text-purple-400 w-12">IF</span> <input type="text" id="pseudo-if1" class="flex-1 bg-transparent border-b border-slate-600 text-white px-2 py-1 focus:border-emerald-400 focus:outline-none" placeholder="kondisi..."> <span class="text-purple-400">THEN</span>
+        </div>
+        <div class="code-line flex items-center gap-2 p-2 rounded pl-8"><input type="text" id="pseudo-then1" class="flex-1 bg-transparent border-b border-slate-600 text-emerald-300 px-2 py-1 focus:border-emerald-400 focus:outline-none" placeholder="aksi jika benar...">
+        </div>
+        <div class="code-line flex items-center gap-2 p-2 rounded"><span class="text-purple-400 w-12">ELSE</span>
+        </div>
+        <div class="code-line flex items-center gap-2 p-2 rounded pl-8"><span class="text-purple-400 w-12">IF</span> <input type="text" id="pseudo-if2" class="flex-1 bg-transparent border-b border-slate-600 text-white px-2 py-1 focus:border-emerald-400 focus:outline-none" placeholder="kondisi nested..."> <span class="text-purple-400">THEN</span>
+        </div>
+        <div class="code-line flex items-center gap-2 p-2 rounded pl-16"><input type="text" id="pseudo-then2" class="flex-1 bg-transparent border-b border-slate-600 text-emerald-300 px-2 py-1 focus:border-emerald-400 focus:outline-none" placeholder="aksi jika benar...">
+        </div>
+        <div class="code-line flex items-center gap-2 p-2 rounded pl-8"><span class="text-purple-400 w-12">ELSE</span>
+        </div>
+        <div class="code-line flex items-center gap-2 p-2 rounded pl-16"><input type="text" id="pseudo-else" class="flex-1 bg-transparent border-b border-slate-600 text-rose-300 px-2 py-1 focus:border-emerald-400 focus:outline-none" placeholder="aksi alternatif...">
+        </div>
+        <div class="code-line flex items-center gap-2 p-2 rounded pl-8"><span class="text-purple-400">ENDIF</span>
+        </div>
+        <div class="code-line flex items-center gap-2 p-2 rounded"><span class="text-purple-400">ENDIF</span>
+        </div>
+       </div>
+      </div>
+     </div><!-- Aktivitas 3 -->
+     <div class="activity-card activity-3 bg-white rounded-2xl p-6 card-shadow">
+      <div class="flex items-start justify-between mb-4">
+       <div class="flex items-center gap-3"><span class="w-10 h-10 bg-purple-100 text-purple-600 rounded-xl flex items-center justify-center font-bold">3</span>
+        <div>
+         <h3 class="font-bold text-slate-800">Perancangan Flowchart</h3><span class="text-xs font-mono text-purple-600 bg-purple-50 px-2 py-0.5 rounded">AP-K10-03</span>
+        </div>
+       </div><input type="checkbox" class="checkbox-custom activity-check" data-activity="3">
+      </div>
+      <div class="bg-purple-50 border border-purple-200 rounded-xl p-4 mb-4">
+       <p class="text-sm text-purple-800"><strong>📋 Instruksi:</strong> Buatlah rancangan Flowchart untuk menghitung <strong>nilai rata-rata dari 3 mata pelajaran</strong> (Matematika, B. Indonesia, B. Inggris).</p>
+      </div><!-- IPO Section -->
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-4 mb-6">
+       <div class="bg-blue-50 rounded-xl p-4 border border-blue-200">
+        <div class="flex items-center gap-2 mb-2"><span class="w-8 h-8 bg-blue-500 text-white rounded-lg flex items-center justify-center text-xs font-bold">I</span> <span class="font-semibold text-blue-800">INPUT</span>
+        </div><textarea id="ipo-input" class="input-field textarea-field w-full px-3 py-2 rounded-lg text-sm" placeholder="Apa saja yang dimasukkan?"></textarea>
+       </div>
+       <div class="bg-amber-50 rounded-xl p-4 border border-amber-200">
+        <div class="flex items-center gap-2 mb-2"><span class="w-8 h-8 bg-amber-500 text-white rounded-lg flex items-center justify-center text-xs font-bold">P</span> <span class="font-semibold text-amber-800">PROSES</span>
+        </div><textarea id="ipo-proses" class="input-field textarea-field w-full px-3 py-2 rounded-lg text-sm" placeholder="Bagaimana cara menghitungnya?"></textarea>
+       </div>
+       <div class="bg-emerald-50 rounded-xl p-4 border border-emerald-200">
+        <div class="flex items-center gap-2 mb-2"><span class="w-8 h-8 bg-emerald-500 text-white rounded-lg flex items-center justify-center text-xs font-bold">O</span> <span class="font-semibold text-emerald-800">OUTPUT</span>
+        </div><textarea id="ipo-output" class="input-field textarea-field w-full px-3 py-2 rounded-lg text-sm" placeholder="Apa hasil yang ditampilkan?"></textarea>
+       </div>
+      </div><!-- Flowchart Symbols Reference -->
+      <div class="bg-slate-50 rounded-xl p-4 border border-slate-200">
+       <h4 class="text-sm font-bold text-slate-700 mb-3">📐 Referensi Simbol Flowchart</h4>
+       <div class="grid grid-cols-2 md:grid-cols-4 gap-3">
+        <div class="flowchart-symbol flex flex-col items-center p-3 bg-white rounded-lg border border-slate-200">
+         <svg class="w-12 h-8 mb-2" viewbox="0 0 48 32"><ellipse cx="24" cy="16" rx="20" ry="12" fill="none" stroke="#10b981" stroke-width="2" />
+         </svg><span class="text-xs font-medium text-slate-600">Terminal</span> <span class="text-xs text-slate-400">Start/End</span>
+        </div>
+        <div class="flowchart-symbol flex flex-col items-center p-3 bg-white rounded-lg border border-slate-200">
+         <svg class="w-12 h-8 mb-2" viewbox="0 0 48 32"><polygon points="8,16 24,4 40,16 24,28" fill="none" stroke="#f59e0b" stroke-width="2" />
+         </svg><span class="text-xs font-medium text-slate-600">Decision</span> <span class="text-xs text-slate-400">Ya/Tidak</span>
+        </div>
+        <div class="flowchart-symbol flex flex-col items-center p-3 bg-white rounded-lg border border-slate-200">
+         <svg class="w-12 h-8 mb-2" viewbox="0 0 48 32"><rect x="4" y="4" width="40" height="24" fill="none" stroke="#3b82f6" stroke-width="2" />
+         </svg><span class="text-xs font-medium text-slate-600">Process</span> <span class="text-xs text-slate-400">Proses</span>
+        </div>
+        <div class="flowchart-symbol flex flex-col items-center p-3 bg-white rounded-lg border border-slate-200">
+         <svg class="w-12 h-8 mb-2" viewbox="0 0 48 32"><polygon points="8,4 44,4 40,28 4,28" fill="none" stroke="#8b5cf6" stroke-width="2" />
+         </svg><span class="text-xs font-medium text-slate-600">I/O</span> <span class="text-xs text-slate-400">Input/Output</span>
+        </div>
+       </div>
+      </div>
+      <div class="mt-4 p-3 bg-purple-100 rounded-lg">
+       <p class="text-sm text-purple-700"><strong>📱 Tugas Chromebook:</strong> Gambarlah flowchart menggunakan <strong>Canva</strong> atau <strong>Google Drawings</strong></p>
+      </div>
+     </div><!-- Aktivitas 4 -->
+     <div class="activity-card activity-4 bg-white rounded-2xl p-6 card-shadow">
+      <div class="flex items-start justify-between mb-4">
+       <div class="flex items-center gap-3"><span class="w-10 h-10 bg-pink-100 text-pink-600 rounded-xl flex items-center justify-center font-bold">4</span>
+        <div>
+         <h3 class="font-bold text-slate-800">Game "Bermain Flowchart"</h3><span class="text-xs font-mono text-pink-600 bg-pink-50 px-2 py-0.5 rounded">AP-K10-04</span>
+        </div>
+       </div><input type="checkbox" class="checkbox-custom activity-check" data-activity="4">
+      </div>
+      <div class="bg-pink-50 border border-pink-200 rounded-xl p-4 mb-4">
+       <p class="text-sm text-pink-800"><strong>🎮 Instruksi:</strong> Setiap anggota kelompok maju bergantian menggambar <strong>satu simbol saja</strong> untuk membentuk alur logika yang diberikan Guru.</p>
+       <div class="mt-3 p-3 bg-white rounded-lg border border-pink-300">
+        <p class="text-sm text-rose-600 font-medium">⚠️ <strong>Aturan:</strong> Dilarang menggambar dua simbol dalam satu kesempatan!</p>
+       </div>
+      </div><label class="block text-sm font-semibold text-slate-700 mb-2">Topik Kartu (Instruksi Guru):</label> <input type="text" id="topik-kartu" class="input-field w-full px-4 py-3 rounded-xl" placeholder="Tuliskan topik yang diberikan guru...">
+      <div class="mt-4 grid grid-cols-6 gap-2">
+       <div class="text-center p-2 bg-slate-50 rounded-lg">
+        <div class="w-8 h-8 mx-auto bg-emerald-100 text-emerald-600 rounded-full flex items-center justify-center text-xs font-bold mb-1">
+         1
+        </div><span class="text-xs text-slate-500">Driver</span>
+       </div>
+       <div class="text-center p-2 bg-slate-50 rounded-lg">
+        <div class="w-8 h-8 mx-auto bg-amber-100 text-amber-600 rounded-full flex items-center justify-center text-xs font-bold mb-1">
+         2
+        </div><span class="text-xs text-slate-500">Nav 1</span>
+       </div>
+       <div class="text-center p-2 bg-slate-50 rounded-lg">
+        <div class="w-8 h-8 mx-auto bg-amber-100 text-amber-600 rounded-full flex items-center justify-center text-xs font-bold mb-1">
+         3
+        </div><span class="text-xs text-slate-500">Nav 2</span>
+       </div>
+       <div class="text-center p-2 bg-slate-50 rounded-lg">
+        <div class="w-8 h-8 mx-auto bg-purple-100 text-purple-600 rounded-full flex items-center justify-center text-xs font-bold mb-1">
+         4
+        </div><span class="text-xs text-slate-500">Research</span>
+       </div>
+       <div class="text-center p-2 bg-slate-50 rounded-lg">
+        <div class="w-8 h-8 mx-auto bg-rose-100 text-rose-600 rounded-full flex items-center justify-center text-xs font-bold mb-1">
+         5
+        </div><span class="text-xs text-slate-500">Val 1</span>
+       </div>
+       <div class="text-center p-2 bg-slate-50 rounded-lg">
+        <div class="w-8 h-8 mx-auto bg-rose-100 text-rose-600 rounded-full flex items-center justify-center text-xs font-bold mb-1">
+         6
+        </div><span class="text-xs text-slate-500">Val 2</span>
+       </div>
+      </div>
+     </div>
+    </section><!-- Section: Evaluasi -->
+    <section id="section-evaluasi" class="space-y-6 hidden">
+     <div class="bg-white rounded-2xl p-6 card-shadow">
+      <h2 class="text-lg font-bold text-slate-800 mb-6 flex items-center gap-2"><span class="w-8 h-8 bg-emerald-100 text-emerald-600 rounded-lg flex items-center justify-center text-sm">✅</span> Lembar Evaluasi &amp; Refleksi</h2><!-- Evaluasi 1 -->
+      <div class="mb-6 p-4 bg-slate-50 rounded-xl">
+       <p class="text-sm font-medium text-slate-700 mb-3">1. Apakah langkah algoritma kelompokmu sudah logis dan tidak melompat?</p>
+       <div class="flex flex-wrap gap-4 mb-3"><label class="flex items-center gap-2 cursor-pointer"> <input type="radio" name="eval1" value="ya" class="w-4 h-4 text-emerald-600"> <span class="text-sm text-slate-600">✅ Ya</span> </label> <label class="flex items-center gap-2 cursor-pointer"> <input type="radio" name="eval1" value="tidak" class="w-4 h-4 text-rose-600"> <span class="text-sm text-slate-600">❌ Tidak</span> </label>
+       </div><input type="text" id="eval1-alasan" class="input-field w-full px-3 py-2 rounded-lg text-sm" placeholder="Jika tidak, jelaskan alasannya...">
+      </div><!-- Evaluasi 2 -->
+      <div class="mb-6 p-4 bg-slate-50 rounded-xl">
+       <p class="text-sm font-medium text-slate-700 mb-3">2. Apakah simbol flowchart yang digunakan sudah sesuai standar?</p>
+       <div class="flex flex-wrap gap-4"><label class="flex items-center gap-2 cursor-pointer"> <input type="radio" name="eval2" value="ya" class="w-4 h-4 text-emerald-600"> <span class="text-sm text-slate-600">✅ Ya</span> </label> <label class="flex items-center gap-2 cursor-pointer"> <input type="radio" name="eval2" value="tidak" class="w-4 h-4 text-rose-600"> <span class="text-sm text-slate-600">❌ Tidak</span> </label>
+       </div>
+      </div><!-- Kesimpulan -->
+      <div class="p-4 bg-gradient-to-r from-blue-50 to-purple-50 rounded-xl border border-blue-200"><label class="block text-sm font-bold text-slate-700 mb-2"> 📝 Kesimpulan: Apa hal paling sulit saat mengubah narasi menjadi pseudocode? </label> <textarea id="kesimpulan" class="input-field textarea-field w-full px-4 py-3 rounded-xl" placeholder="Tuliskan refleksi kelompokmu..."></textarea>
+      </div>
+     </div>
+    </section><!-- Section: Panduan -->
+    <section id="section-panduan" class="space-y-6 hidden">
+     <div class="bg-white rounded-2xl p-6 card-shadow">
+      <h2 class="text-lg font-bold text-slate-800 mb-6 flex items-center gap-2"><span class="w-8 h-8 bg-amber-100 text-amber-600 rounded-lg flex items-center justify-center text-sm">📖</span> Panduan Guru untuk Kelompok 6-7 Orang</h2>
+      <div class="space-y-4"><!-- Driver -->
+       <div class="flex gap-4 p-4 bg-emerald-50 rounded-xl border border-emerald-200">
+        <div class="w-12 h-12 bg-emerald-500 text-white rounded-xl flex items-center justify-center flex-shrink-0">
+         <svg class="w-6 h-6" fill="none" stroke="currentColor" viewbox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9.75 17L9 20l-1 1h8l-1-1-.75-3M3 13h18M5 17h14a2 2 0 002-2V5a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
+         </svg>
+        </div>
+        <div>
+         <h3 class="font-bold text-emerald-800">🖥️ Sistem Driver</h3>
+         <p class="text-sm text-emerald-700 mt-1">Hanya si <strong>"Driver"</strong> yang boleh memegang Chromebook. Anggota lain tidak boleh mengetik langsung.</p>
+        </div>
+       </div><!-- Navigator -->
+       <div class="flex gap-4 p-4 bg-amber-50 rounded-xl border border-amber-200">
+        <div class="w-12 h-12 bg-amber-500 text-white rounded-xl flex items-center justify-center flex-shrink-0">
+         <svg class="w-6 h-6" fill="none" stroke="currentColor" viewbox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 20l-5.447-2.724A1 1 0 013 16.382V5.618a1 1 0 011.447-.894L9 7m0 13l6-3m-6 3V7m6 10l4.553 2.276A1 1 0 0021 18.382V7.618a1 1 0 00-.553-.894L15 4m0 13V4m0 0L9 7" />
+         </svg>
+        </div>
+        <div>
+         <h3 class="font-bold text-amber-800">🧭 Navigator</h3>
+         <p class="text-sm text-amber-700 mt-1">Bertugas <strong>membacakan langkah</strong> dari hasil diskusi kertas ke si Driver. Navigator memastikan logika alur sudah benar.</p>
+        </div>
+       </div><!-- Validator -->
+       <div class="flex gap-4 p-4 bg-rose-50 rounded-xl border border-rose-200">
+        <div class="w-12 h-12 bg-rose-500 text-white rounded-xl flex items-center justify-center flex-shrink-0">
+         <svg class="w-6 h-6" fill="none" stroke="currentColor" viewbox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
+         </svg>
+        </div>
+        <div>
+         <h3 class="font-bold text-rose-800">✓ Validator</h3>
+         <p class="text-sm text-rose-700 mt-1">Bertugas <strong>mengecek</strong> apakah ketikan di Chromebook sudah sesuai dengan pseudocode/flowchart yang dirancang di kertas.</p>
+        </div>
+       </div>
+      </div><!-- Tips -->
+      <div class="mt-6 p-4 bg-gradient-to-r from-blue-100 to-purple-100 rounded-xl">
+       <h4 class="font-bold text-slate-800 mb-2">💡 Tips Kolaborasi Efektif</h4>
+       <ul class="text-sm text-slate-700 space-y-1">
+        <li>• Diskusikan dulu di kertas sebelum mengetik</li>
+        <li>• Gunakan komunikasi yang jelas dan singkat</li>
+        <li>• Validator harus teliti mengecek setiap detail</li>
+        <li>• Researcher siapkan referensi simbol flowchart</li>
+       </ul>
+      </div>
+     </div>
+    </section>
+   </main><!-- Footer -->
+   <footer class="bg-slate-800 text-white py-8 mt-8">
+    <div class="relative"><!-- Main Footer Content (Center) -->
+     <div class="max-w-6xl mx-auto px-4 text-center">
+      <p class="text-sm text-slate-400 mb-2">LKPD Koding dan Kecerdasan Artifisial • Algoritma Dasar</p>
+      <p class="text-xs text-slate-500">© <span id="year-footer">2026</span> Birulogi - Dibuat untuk mendukung pembelajaran interaktif</p>
+     </div><!-- Social Media Section (Side) -->
+     <div class="absolute top-0 right-4 flex gap-1"><a href="https://google.com" target="_blank" rel="noopener noreferrer" class="flex items-center justify-center w-8 h-8 rounded-lg bg-slate-700 hover:bg-slate-600 transition-colors group" title="WhatsApp">
+       <svg class="w-4 h-4 text-green-400 group-hover:scale-110 transition-transform" fill="currentColor" viewbox="0 0 24 24">
+        <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.67-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.076 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421-7.403h-.004a9.87 9.87 0 00-4.255.949c-3.238 1.565-5.552 4.823-5.552 8.486 0 5.248 4.236 9.5 9.6 9.5 1.464 0 2.891-.267 4.203-.75l.633.81c.562.718 1.545 2.031 3.146 2.405.779.201 1.264.15 1.496-.04.282-.223.458-.75.45-1.91.013-4.02-.278-4.021-4.487-5.592-1.392-1.405-2.047-2.029-2.681-3.023-.281-.462-.633-1.122-.633-2.205 0-1.3.523-2.26 1.327-3.001.443-.392.887-.643 1.574-.867.687-.224 1.358-.15 2.029.15.671.3 1.248.766 1.871 1.701.623.936 1.122 1.909 1.445 2.735.328.844.574 1.702.738 2.59.204 1.038.288 2.06.288 3.07 0 .973-.072 1.925-.215 2.844-.151.96-.419 1.877-.79 2.742-.371.865-.854 1.677-1.436 2.42-.582.743-1.267 1.428-2.045 2.04-.778.612-1.656 1.168-2.619 1.652-.963.484-2.002.909-3.103 1.266-1.1.357-2.264.662-3.481.906-1.217.244-2.498.431-3.832.556-1.334.125-2.73.184-4.188.184-5.324 0-9.6-4.27-9.6-9.5z" />
+       </svg></a> <a href="https://google.com" target="_blank" rel="noopener noreferrer" class="flex items-center justify-center w-8 h-8 rounded-lg bg-slate-700 hover:bg-slate-600 transition-colors group" title="Instagram">
+       <svg class="w-4 h-4 text-pink-400 group-hover:scale-110 transition-transform" fill="currentColor" viewbox="0 0 24 24">
+        <path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zM5.838 12a6.162 6.162 0 1112.324 0 6.162 6.162 0 01-12.324 0zM12 16a4 4 0 110-8 4 4 0 010 8zm4.965-10.322a1.44 1.44 0 1102.881 0 1.44 1.44 0 01-2.881 0z" />
+       </svg></a> <a href="https://google.com" target="_blank" rel="noopener noreferrer" class="flex items-center justify-center w-8 h-8 rounded-lg bg-slate-700 hover:bg-slate-600 transition-colors group" title="TikTok">
+       <svg class="w-4 h-4 text-slate-300 group-hover:scale-110 transition-transform" fill="currentColor" viewbox="0 0 24 24">
+        <path d="M12 2C6.478 2 2 6.477 2 12s4.478 10 10 10 10-4.477 10-10S17.522 2 12 2zm4.68 10.97c-1.184 0-2.22.974-2.22 2.173 0 1.2 1.036 2.173 2.22 2.173s2.22-.972 2.22-2.173c0-1.2-1.035-2.173-2.22-2.173zm-4.5 6.04c-1.184 0-2.22.973-2.22 2.173 0 1.199 1.036 2.172 2.22 2.172s2.22-.973 2.22-2.172c0-1.2-1.035-2.173-2.22-2.173zm0-7.877c-1.184 0-2.22.973-2.22 2.173 0 1.2 1.036 2.173 2.22 2.173s2.22-.973 2.22-2.173c-.001-1.2-1.036-2.173-2.22-2.173z" />
+       </svg></a> <a href="https://google.com" target="_blank" rel="noopener noreferrer" class="flex items-center justify-center w-8 h-8 rounded-lg bg-slate-700 hover:bg-slate-600 transition-colors group" title="Facebook">
+       <svg class="w-4 h-4 text-blue-400 group-hover:scale-110 transition-transform" fill="currentColor" viewbox="0 0 24 24">
+        <path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z" />
+       </svg></a> <a href="https://google.com" target="_blank" rel="noopener noreferrer" class="flex items-center justify-center w-8 h-8 rounded-lg bg-slate-700 hover:bg-slate-600 transition-colors group" title="Twitter/X">
+       <svg class="w-4 h-4 text-sky-400 group-hover:scale-110 transition-transform" fill="currentColor" viewbox="0 0 24 24">
+        <path d="M23 3a10.9 10.9 0 01-3.14 1.53 4.48 4.48 0 00-7.86 3v1A10.66 10.66 0 013 4s-4 9 5 13a11.64 11.64 0 01-7 2s9 5 20 5a9.5 9.5 0 00-9-5.5c4.75 2.25 7-7 7-7" />
+       </svg></a> <a href="https://google.com" target="_blank" rel="noopener noreferrer" class="flex items-center justify-center w-8 h-8 rounded-lg bg-slate-700 hover:bg-slate-600 transition-colors group" title="Email">
+       <svg class="w-4 h-4 text-red-400 group-hover:scale-110 transition-transform" fill="none" stroke="currentColor" viewbox="0 0 24 24">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
+       </svg></a> <a href="https://google.com" target="_blank" rel="noopener noreferrer" class="flex items-center justify-center w-8 h-8 rounded-lg bg-slate-700 hover:bg-slate-600 transition-colors group" title="YouTube">
+       <svg class="w-4 h-4 text-red-500 group-hover:scale-110 transition-transform" fill="currentColor" viewbox="0 0 24 24">
+        <path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z" />
+       </svg></a>
+     </div>
+    </div>
+   </footer>
+  </div>
+  <style>
+    @media print {
+      body {
+        background: white;
+      }
+      #app-wrapper {
+        overflow: visible;
+      }
+      .nav-tab, #toast-container, button { 
+        display: none !important;
+      }
+      .nav-tab.active {
+        display: block !important;
+      }
+      header nav {
+        display: none;
+      }
+      #section-info, #section-aktivitas, #section-evaluasi, #section-panduan {
+        display: block !important;
+        page-break-after: always;
+      }
+      main {
+        max-width: 100%;
+        padding: 0;
+        margin: 0;
+      }
+      .card-shadow, .activity-card {
+        box-shadow: none;
+        border: 1px solid #e5e7eb;
+        page-break-inside: avoid;
+      }
+      .gradient-header {
+        background: #1e3a5f;
+        color: white;
+      }
+      footer {
+        page-break-before: always;
+      }
+      * {
+        color-adjust: exact;
+        print-color-adjust: exact;
+      }
+    }
+  </style>
+  <script>
+    // Default configuration
+    const defaultConfig = {
+      main_title: 'LEMBAR KERJA PESERTA DIDIK',
+      subject_name: 'Koding dan Kecerdasan Artifisial (KKA)',
+      week_info: 'Minggu 1',
+      year_text: '2026',
+      school_name: 'Birulogi',
+      primary_color: '#1e3a5f',
+      secondary_color: '#f8fafc',
+      text_color: '#1e293b',
+      accent_color: '#10b981',
+      button_color: '#3d7ab5'
+    };
+
+    let stepCount = 3;
+
+    // Initialize Element SDK
+    if (window.elementSdk) {
+      window.elementSdk.init({
+        defaultConfig,
+        onConfigChange: async (config) => {
+          document.getElementById('main-title').textContent = config.main_title || defaultConfig.main_title;
+          document.getElementById('subject-name').textContent = config.subject_name || defaultConfig.subject_name;
+          document.getElementById('week-badge').textContent = config.week_info || defaultConfig.week_info;
+          document.getElementById('year-footer').textContent = config.year_text || defaultConfig.year_text;
+        },
+        mapToCapabilities: (config) => ({
+          recolorables: [
+            {
+              get: () => config.primary_color || defaultConfig.primary_color,
+              set: (value) => { config.primary_color = value; window.elementSdk.setConfig({ primary_color: value }); }
+            },
+            {
+              get: () => config.secondary_color || defaultConfig.secondary_color,
+              set: (value) => { config.secondary_color = value; window.elementSdk.setConfig({ secondary_color: value }); }
+            },
+            {
+              get: () => config.text_color || defaultConfig.text_color,
+              set: (value) => { config.text_color = value; window.elementSdk.setConfig({ text_color: value }); }
+            },
+            {
+              get: () => config.accent_color || defaultConfig.accent_color,
+              set: (value) => { config.accent_color = value; window.elementSdk.setConfig({ accent_color: value }); }
+            },
+            {
+              get: () => config.button_color || defaultConfig.button_color,
+              set: (value) => { config.button_color = value; window.elementSdk.setConfig({ button_color: value }); }
+            }
+          ],
+          borderables: [],
+          fontEditable: undefined,
+          fontSizeable: undefined
+        }),
+        mapToEditPanelValues: (config) => new Map([
+          ['main_title', config.main_title || defaultConfig.main_title],
+          ['subject_name', config.subject_name || defaultConfig.subject_name],
+          ['week_info', config.week_info || defaultConfig.week_info],
+          ['year_text', config.year_text || defaultConfig.year_text],
+          ['school_name', config.school_name || defaultConfig.school_name]
+        ])
+      });
+    }
+
+    // Navigation
+    function showSection(sectionId) {
+      const sections = ['info', 'aktivitas', 'evaluasi', 'panduan'];
+      sections.forEach(id => {
+        const section = document.getElementById(`section-${id}`);
+        const tab = document.querySelector(`[data-section="${id}"]`);
+        if (id === sectionId) {
+          section.classList.remove('hidden');
+          tab.classList.add('active');
+        } else {
+          section.classList.add('hidden');
+          tab.classList.remove('active');
+        }
+      });
+    }
+
+    // Add narrative step
+    function addNaratifStep() {
+      stepCount++;
+      const container = document.getElementById('naratif-container');
+      const newStep = document.createElement('div');
+      newStep.className = 'flex items-center gap-2 naratif-step';
+      newStep.innerHTML = `
+        <span class="w-7 h-7 bg-slate-100 rounded-lg flex items-center justify-center text-xs font-bold text-slate-500">${stepCount}</span>
+        <input type="text" class="input-field flex-1 px-3 py-2 rounded-lg text-sm naratif-input" placeholder="Langkah ke-${stepCount}...">
+        <button onclick="removeNaratifStep(this)" class="w-7 h-7 bg-rose-100 text-rose-600 rounded-lg flex items-center justify-center hover:bg-rose-200 transition-colors">
+          <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/></svg>
+        </button>
+      `;
+      container.appendChild(newStep);
+      updateProgress();
+    }
+
+    // Remove narrative step
+    function removeNaratifStep(button) {
+      const step = button.parentElement;
+      step.remove();
+      renumberSteps();
+      updateProgress();
+    }
+
+    // Add member
+    function addMember() {
+      const container = document.getElementById('members-container');
+      const memberCount = container.children.length + 1;
+      
+      const roles = [
+        { emoji: '👤', label: 'ANGGOTA', color: 'slate', desc: 'Anggota tambahan' }
+      ];
+      
+      const role = roles[0];
+      
+      const newMember = document.createElement('div');
+      newMember.className = 'member-card rounded-xl p-4 border border-slate-200 relative group';
+      newMember.innerHTML = `
+        <div class="flex items-center justify-between mb-3">
+          <span class="role-badge bg-${role.color}-100 text-${role.color}-700">${role.emoji} ${role.label}</span>
+          <span class="text-xs text-slate-400">#${memberCount}</span>
+        </div>
+        <input type="text" class="input-field w-full px-3 py-2 rounded-lg text-sm member-input" placeholder="Nama anggota...">
+        <p class="text-xs text-slate-500 mt-2">${role.desc}</p>
+        <button onclick="removeMember(this)" class="absolute top-2 right-2 opacity-0 group-hover:opacity-100 w-6 h-6 bg-rose-100 text-rose-600 rounded-lg flex items-center justify-center hover:bg-rose-200 transition-all">
+          <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/></svg>
+        </button>
+      `;
+      
+      container.appendChild(newMember);
+      newMember.querySelector('.member-input').addEventListener('input', updateProgress);
+      updateProgress();
+      showToast(`✅ Anggota #${memberCount} ditambahkan!`, 'success');
+    }
+
+    // Remove member
+    function removeMember(button) {
+      const member = button.closest('.member-card');
+      member.remove();
+      updateProgress();
+      showToast('❌ Anggota dihapus', 'success');
+    }
+
+    // Toggle social media links
+    function toggleSosmed() {
+      const container = document.getElementById('sosmed-container');
+      container.classList.toggle('hidden');
+    }
+
+    
+    function printPage() {
+      const printWindow = window.open('', '', 'height=900,width=900');
+      
+      const printContent = `
+        <!DOCTYPE html>
+        <html lang="id">
+        <head>
+          <meta charset="UTF-8">
+          <meta name="viewport" content="width=device-width, initial-scale=1.0">
+          <title>LKPD - Cetak A4</title>
+          <style>
+            * { margin: 0; padding: 0; box-sizing: border-box; }
+            body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; line-height: 1.6; color: #333; background: white; }
+            @page { size: A4; margin: 1cm; }
+            @media print {
+              body { margin: 0; padding: 1cm; }
+              .page-break { page-break-after: always; }
+              h1, h2, h3 { page-break-after: avoid; }
+              .card { page-break-inside: avoid; }
+            }
+            .header { background: linear-gradient(135deg, #1e3a5f 0%, #3d7ab5 100%); color: white; padding: 20px; border-radius: 8px; margin-bottom: 20px; text-align: center; }
+            .header h1 { font-size: 24px; margin-bottom: 5px; }
+            .header p { font-size: 12px; opacity: 0.9; }
+            .card { border: 1px solid #ddd; padding: 15px; margin-bottom: 15px; border-radius: 6px; }
+            .card h2 { font-size: 16px; margin-bottom: 10px; color: #1e3a5f; border-bottom: 2px solid #10b981; padding-bottom: 5px; }
+            .members-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; }
+            .member-item { border: 1px solid #e5e7eb; padding: 10px; border-radius: 5px; font-size: 11px; }
+            .member-item strong { color: #1e3a5f; }
+            .form-line { border-bottom: 1px solid #333; margin: 20px 0; height: 20px; }
+            .footer { text-align: center; font-size: 10px; color: #666; margin-top: 30px; padding-top: 15px; border-top: 1px solid #ddd; }
+            table { width: 100%; border-collapse: collapse; margin-bottom: 10px; }
+            td { border: 1px solid #ddd; padding: 8px; font-size: 11px; }
+            th { background: #f5f5f5; padding: 8px; font-size: 11px; text-align: left; }
+          </style>
+        </head>
+        <body>
+          <div class="header">
+            <h1>LEMBAR KERJA PESERTA DIDIK</h1>
+            <p>Koding dan Kecerdasan Artifisial (KKA) | Minggu 1</p>
+          </div>
+          
+          <div class="card">
+            <h2>📋 INFORMASI KELOMPOK</h2>
+            <p><strong>Nama Kelompok:</strong> ${document.getElementById('nama-kelompok').value || '_______________'}</p>
+            <h3 style="font-size: 12px; margin-top: 10px; margin-bottom: 5px;">Anggota Kelompok:</h3>
+            <div class="members-grid">
+              ${Array.from(document.querySelectorAll('.member-input')).map((input, i) => `
+                <div class="member-item">
+                  <strong>#${i+1}</strong><br/>
+                  ${input.value || '_____________'}
+                </div>
+              `).join('')}
+            </div>
+          </div>
+          
+          <div class="card">
+            <h2>✍️ AKTIVITAS 1: ALGORITMA NARATIF</h2>
+            <p style="margin-bottom: 10px;"><strong>Langkah-langkah:</strong></p>
+            ${Array.from(document.querySelectorAll('.naratif-input')).map((input, i) => `
+              <p style="margin-bottom: 5px;"><strong>${i+1}.</strong> ${input.value || '___________________________________'}</p>
+            `).join('')}
+          </div>
+          
+          <div class="card">
+            <h2>💻 AKTIVITAS 2: PSEUDOCODE</h2>
+            <p style="font-family: monospace; font-size: 10px; margin-bottom: 10px;">
+              IF ${document.getElementById('pseudo-if1').value || '________'} THEN<br/>
+              &nbsp;&nbsp;${document.getElementById('pseudo-then1').value || '________'}<br/>
+              ELSE<br/>
+              &nbsp;&nbsp;IF ${document.getElementById('pseudo-if2').value || '________'} THEN<br/>
+              &nbsp;&nbsp;&nbsp;&nbsp;${document.getElementById('pseudo-then2').value || '________'}<br/>
+              &nbsp;&nbsp;ELSE<br/>
+              &nbsp;&nbsp;&nbsp;&nbsp;${document.getElementById('pseudo-else').value || '________'}<br/>
+              &nbsp;&nbsp;ENDIF<br/>
+              ENDIF
+            </p>
+          </div>
+          
+          <div class="card">
+            <h2>📊 AKTIVITAS 3: FLOWCHART (IPO)</h2>
+            <table>
+              <tr>
+                <th>INPUT</th>
+                <td>${document.getElementById('ipo-input').value || '_________________________'}</td>
+              </tr>
+              <tr>
+                <th>PROSES</th>
+                <td>${document.getElementById('ipo-proses').value || '_________________________'}</td>
+              </tr>
+              <tr>
+                <th>OUTPUT</th>
+                <td>${document.getElementById('ipo-output').value || '_________________________'}</td>
+              </tr>
+            </table>
+          </div>
+          
+          <div class="card">
+            <h2>🎮 AKTIVITAS 4: GAME FLOWCHART</h2>
+            <p><strong>Topik:</strong> ${document.getElementById('topik-kartu').value || '_________________________'}</p>
+          </div>
+          
+          <div class="card">
+            <h2>✅ EVALUASI</h2>
+            <p>1. Algoritma logis? ${Array.from(document.querySelectorAll('input[name="eval1"]')).find(r => r.checked)?.value.toUpperCase() || 'BELUM DIJAWAB'}</p>
+            <p>2. Simbol standar? ${Array.from(document.querySelectorAll('input[name="eval2"]')).find(r => r.checked)?.value.toUpperCase() || 'BELUM DIJAWAB'}</p>
+            <p style="margin-top: 10px;"><strong>Kesimpulan:</strong></p>
+            <p>${document.getElementById('kesimpulan').value || '_________________________'}</p>
+          </div>
+          
+          <div class="footer">
+            <p>© 2026 Birulogi - LKPD Algoritma Dasar & Flowchart</p>
+            <p>Dicetak: ${new Date().toLocaleDateString('id-ID', { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' })}</p>
+          </div>
+        </body>
+        </html>
+      `;
+      
+      printWindow.document.write(printContent);
+      printWindow.document.close();
+      
+      setTimeout(() => {
+        printWindow.print();
+      }, 250);
+      
+      showToast('📄 Membuka jendela cetak...', 'success');
+    }
+    function renumberSteps() {
+      const steps = document.querySelectorAll('.naratif-step');
+      steps.forEach((step, index) => {
+        const numSpan = step.querySelector('span');
+        numSpan.textContent = index + 1;
+      });
+      stepCount = steps.length;
+    }
+
+    // Update progress bar
+    function updateProgress() {
+      const checkboxes = document.querySelectorAll('.activity-check');
+      const checkedCount = document.querySelectorAll('.activity-check:checked').length;
+      const totalActivities = checkboxes.length;
+      
+      const inputs = document.querySelectorAll('.naratif-input, .member-input, #nama-kelompok, #pseudo-if1, #pseudo-then1, #pseudo-if2, #pseudo-then2, #pseudo-else, #ipo-input, #ipo-proses, #ipo-output, #topik-kartu, #kesimpulan');
+      const filledInputs = Array.from(inputs).filter(input => input.value.trim() !== '').length;
+      const totalInputs = inputs.length;
+      
+      const activityWeight = 0.6;
+      const inputWeight = 0.4;
+      
+      const activityProgress = (checkedCount / totalActivities) * activityWeight * 100;
+      const inputProgress = (filledInputs / totalInputs) * inputWeight * 100;
+      
+      const totalProgress = Math.round(activityProgress + inputProgress);
+      
+      document.getElementById('progress-bar').style.width = `${totalProgress}%`;
+      document.getElementById('progress-text').textContent = `${totalProgress}%`;
+      
+      if (totalProgress === 100) {
+        showToast('🎉 Semua aktivitas selesai!', 'success');
+      }
+    }
+
+    // Toast notification
+    function showToast(message, type = 'info') {
+      const container = document.getElementById('toast-container');
+      const toast = document.createElement('div');
+      const bgColor = type === 'success' ? 'bg-emerald-500' : 'bg-blue-500';
+      toast.className = `toast ${bgColor} text-white px-4 py-3 rounded-xl shadow-lg mb-2 text-sm font-medium`;
+      toast.textContent = message;
+      container.appendChild(toast);
+      setTimeout(() => toast.remove(), 3000);
+    }
+
+    // Event listeners
+    document.addEventListener('DOMContentLoaded', () => {
+      // Activity checkboxes
+      document.querySelectorAll('.activity-check').forEach(checkbox => {
+        checkbox.addEventListener('change', updateProgress);
+      });
+
+      // All input fields
+      document.querySelectorAll('input[type="text"], textarea').forEach(input => {
+        input.addEventListener('input', updateProgress);
+      });
+    });
+  </script>
+ <script>(function(){function c(){var b=a.contentDocument||a.contentWindow.document;if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'9c0780bfe058cdfd',t:'MTc2ODgzNzk4NS4wMDAwMDA='};var a=document.createElement('script');a.nonce='';a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script></body>
+</html>

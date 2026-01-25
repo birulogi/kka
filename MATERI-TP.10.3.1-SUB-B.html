@@ -1,0 +1,336 @@
+<!DOCTYPE html>
+<html lang="id" class="h-full">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>B. Implementasi Logika Pemrograman dalam Flowchart</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+  <style>
+    .font-heading { font-family: 'Space Grotesk', sans-serif; }
+    .font-mono { font-family: 'JetBrains Mono', monospace; }
+    .gradient-bg { background: linear-gradient(135deg, #020617 0%, #0f172a 50%, #020617 100%); }
+    .section-fade { opacity: 0; transform: translateY(40px); transition: all 1s ease-out; }
+    .section-fade.visible { opacity: 1; transform: translateY(0); }
+    .accordion-content { max-height: 0; overflow: hidden; transition: max-height 0.8s ease; }
+    .accordion-content.open { max-height: 5000px; }
+    
+    /* Flowchart Component Styles */
+    .fc-shape { @apply flex items-center justify-center text-[10px] font-bold text-center px-4 py-2 min-h-[40px] border-2 shadow-lg transition-transform hover:scale-105; }
+    .fc-terminal { @apply rounded-full bg-blue-600 border-blue-400 text-white w-24; }
+    .fc-process { @apply bg-slate-800 border-blue-500 text-slate-200 w-48; }
+    .fc-io { @apply bg-slate-800 border-purple-500 text-slate-200 w-48; transform: skew(-15deg); }
+    .fc-io span { transform: skew(15deg); }
+    .fc-decision { @apply bg-slate-800 border-yellow-500 text-slate-200 w-24 h-24 rotate-45; }
+    .fc-decision span { @apply -rotate-45 block w-full text-[9px]; }
+    .fc-arrow { @apply w-0.5 h-8 bg-slate-600 relative after:content-['▼'] after:absolute after:-bottom-2 after:-left-[5px] after:text-[10px] after:text-slate-600; }
+  </style>
+</head>
+<body class="h-full gradient-bg text-slate-300 font-heading overflow-auto">
+  
+  <nav class="fixed top-0 left-0 right-0 z-50 bg-slate-950/80 backdrop-blur-md border-b border-white/5">
+    <div class="max-w-7xl mx-auto px-6 py-4 flex justify-between items-center">
+      <div class="flex items-center gap-3">
+        <div class="p-2 bg-blue-600 rounded-lg shadow-blue-500/20 shadow-lg"><code class="text-white font-bold">KKA</code></div>
+        <span class="text-white font-bold tracking-tighter text-lg uppercase">Bab 2: Algoritma & Pemrograman Lanjut</span>
+      </div>
+    </div>
+  </nav>
+
+  <header class="pt-40 pb-20 px-6 max-w-5xl mx-auto text-center">
+    <div class="section-fade">
+      <h2 class="text-blue-500 font-mono text-sm tracking-[0.4em] uppercase mb-4">Materi Pembelajaran</h2>
+      <h1 class="text-5xl md:text-7xl font-bold text-white mb-8 leading-tight">Implementasi Logika Pemrograman</h1>
+      <p class="text-xl text-slate-400 max-w-2xl mx-auto leading-relaxed italic font-light">"Memahami landasan berpikir sistematis melalui alur diagram alir yang logis."</p>
+    </div>
+  </header>
+
+  <main class="max-w-5xl mx-auto px-6 pb-40 space-y-32">
+    
+    <section class="section-fade space-y-12">
+      <div class="flex items-center gap-4">
+        <h3 class="text-3xl font-bold text-white whitespace-nowrap">B. Konsep Logika</h3>
+        <div class="h-px bg-blue-500/30 w-full"></div>
+      </div>
+      
+      <div class="grid md:grid-cols-12 gap-10">
+        <div class="md:col-span-7 space-y-6 text-justify leading-loose">
+          <p>
+            Logika berasal dari bahasa Yunani yaitu <strong>logos</strong> yang berarti ilmu. Logika dapat diartikan ilmu yang mengajarkan cara berpikir untuk melakukan kegiatan dengan tujuan tertentu. Sedangkan program adalah kumpulan instruksi berupa pernyataan yang ditulis dengan menggunakan bahasa pemrograman yang melibatkan pemilihan struktur data.
+          </p>
+          <p>
+            Logika pemrograman adalah landasan utama untuk menentukan cara kerja suatu program komputer yang memungkinkan untuk menyelesaikan persoalan dan melaksanakan berbagai tugas melalui penulisan kode bahasa pemrograman. Logika pemrograman memiliki peran yang sangat penting, karena membantu seorang pengembang menulis kode program yang sesuai dengan kebutuhan, mudah dibaca, dikelola, dan dikembangkan.
+          </p>
+        </div>
+        <div class="md:col-span-5 bg-slate-900/50 p-8 rounded-3xl border border-blue-500/20 shadow-2xl">
+          <h4 class="text-blue-400 font-bold mb-4 flex items-center gap-2">💡 Info Penting</h4>
+          <p class="text-sm italic leading-relaxed">
+            "Prinsip logika pemrograman adalah memanfaatkan pola pikir yang terstruktur dan sistematis untuk mengatur program dalam mengolah data, mengambil keputusan, serta menjalankan perintah."
+          </p>
+        </div>
+      </div>
+
+      <div class="bg-slate-900/30 p-10 rounded-[2.5rem] border border-white/5 leading-loose text-justify space-y-6">
+        <p>
+          Logika ini tidak bergantung pada aturan sintaks dari bahasa pemrograman tertentu, melainkan berfokus pada pendekatan dalam menyelesaikan masalah dan penerapan solusi secara logis dalam kode program yang merupakan dasar dari semua bahasa pemrograman, baik itu <strong>C++, Pascal, Java, atau Python</strong>. Logika ini membantu pengembang untuk merancang alur kerja yang efisien sehingga program dapat berjalan dengan benar.
+        </p>
+        <p>
+          Logika pemrograman memiliki kaitan erat dengan algoritma pemrograman. Jika logika pemrograman adalah cara penyelesaian suatu masalah dengan prinsip dan aturan tertentu, maka algoritma pemrograman adalah urutan atau langkah-langkah sistematis yang disusun untuk mewujudkan penyelesaian masalah tersebut. 
+        </p>
+        <p>
+          Penguasaan logika pemrograman yang baik memungkinkan program berjalan lebih efektif, meminimalkan kesalahan, dan meningkatkan efisiensi. Selain itu, pemahaman yang kuat terhadap logika ini mempermudah proses belajar bahasa pemrograman baru dan mendorong munculnya solusi optimasi program yang inovatif pada pemrograman yang kompleks.
+        </p>
+      </div>
+    </section>
+
+    <section class="section-fade space-y-20">
+      <div class="text-center">
+        <h3 class="text-3xl font-bold text-white mb-4 uppercase tracking-widest">Jenis-Jenis Logika Pemrograman</h3>
+        <p class="text-slate-500">Simak dan pelajari visualisasi alurnya dengan saksama.</p>
+      </div>
+
+      <div class="bg-slate-900/40 p-10 rounded-[3rem] border border-white/5 space-y-10">
+        <div class="flex items-start gap-6">
+          <span class="text-6xl font-black text-blue-900/50">01</span>
+          <div>
+            <h4 class="text-2xl font-bold text-white mb-2 underline decoration-blue-500 underline-offset-8">Logika Urutan (Sequence Logic)</h4>
+            <p class="leading-relaxed text-slate-400">Logika urutan merupakan instruksi secara berurutan dari atas ke bawah sebagaimana tertulis dalam kode program. Setiap pernyataan dieksekusi satu per satu sesuai dengan alur logika yang telah dirancang tanpa adanya percabangan atau pengulangan.</p>
+          </div>
+        </div>
+        
+        <div class="grid md:grid-cols-2 gap-12 items-center">
+          <div class="bg-black/40 p-8 rounded-2xl border border-white/5 font-mono text-xs space-y-4">
+            <p class="text-blue-400 font-bold tracking-widest">CONTOH LOGIKA:</p>
+            <ol class="space-y-2">
+              <li>1. Mulai.</li>
+              <li>2. Terima nilai-nilai dari user.</li>
+              <li>3. Jumlahkan semua nilai tersebut.</li>
+              <li>4. Bagi total nilai dengan jumlah nilai yang diberikan.</li>
+              <li>5. Tampilkan hasil rata-rata.</li>
+              <li>6. Selesai.</li>
+            </ol>
+          </div>
+          <div class="flex flex-col items-center py-4">
+            <div class="fc-shape fc-terminal">Start</div><div class="fc-arrow"></div>
+            <div class="fc-shape fc-io"><span>Input nilaiA, B, C, D</span></div><div class="fc-arrow"></div>
+            <div class="fc-shape fc-process">Jumlah = A+B+C+D</div><div class="fc-arrow"></div>
+            <div class="fc-shape fc-process">Rata2 = Jumlah / 4</div><div class="fc-arrow"></div>
+            <div class="fc-shape fc-io"><span>Output Rata2</span></div><div class="fc-arrow"></div>
+            <div class="fc-shape fc-terminal opacity-60">End</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="bg-slate-900/40 p-10 rounded-[3rem] border border-white/5 space-y-10">
+        <div class="flex items-start gap-6">
+          <span class="text-6xl font-black text-yellow-900/50">02</span>
+          <div>
+            <h4 class="text-2xl font-bold text-white mb-2 underline decoration-yellow-500 underline-offset-8">Logika Seleksi/Percabangan (Selection Logic)</h4>
+            <p class="leading-relaxed text-slate-400">Logika yang digunakan untuk membuat keputusan berdasarkan kondisi. Pengambilan keputusan berdasarkan kondisi ini, menggunakan struktur seperti <i>if, if-else, atau switch-case</i>. Kondisi ini dibentuk menggunakan operator logika aritmatika, perbandingan, dan boolean untuk mengevaluasi nilai dan menentukan jalur eksekusi.</p>
+          </div>
+        </div>
+        
+        <div class="grid md:grid-cols-2 gap-12 items-center">
+          <div class="bg-black/40 p-8 rounded-2xl border border-white/5 font-mono text-xs space-y-4">
+            <p class="text-yellow-400 font-bold tracking-widest">CONTOH LOGIKA:</p>
+            <ol class="space-y-2">
+              <li>1. Mulai.</li>
+              <li>2. Masukan nilai peserta didik.</li>
+              <li>3. Jika nilai >= 60, maka dinyatakan lulus.</li>
+              <li>4. Jika tidak, dinyatakan tidak lulus.</li>
+              <li>5. Tampilkan hasil kelulusan.</li>
+              <li>6. Selesai.</li>
+            </ol>
+          </div>
+          <div class="flex flex-col items-center">
+            <div class="fc-shape fc-terminal">Start</div><div class="fc-arrow"></div>
+            <div class="fc-shape fc-io"><span>Input nilaiSiswa</span></div><div class="fc-arrow"></div>
+            <div class="fc-shape fc-decision"><span>nilaiSiswa >= 60?</span></div>
+            <div class="flex gap-20 mt-4">
+              <div class="flex flex-col items-center">
+                <span class="text-[10px] text-green-500 font-bold">YA</span>
+                <div class="fc-shape fc-io w-24"><span>"Lulus"</span></div>
+              </div>
+              <div class="flex flex-col items-center">
+                <span class="text-[10px] text-red-500 font-bold">TIDAK</span>
+                <div class="fc-shape fc-io w-24"><span>"Gagal"</span></div>
+              </div>
+            </div>
+            <div class="fc-arrow mt-4"></div>
+            <div class="fc-shape fc-terminal opacity-60">End</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="bg-slate-900/40 p-10 rounded-[3rem] border border-white/5 space-y-10">
+        <div class="flex items-start gap-6">
+          <span class="text-6xl font-black text-emerald-900/50">03</span>
+          <div>
+            <h4 class="text-2xl font-bold text-white mb-2 underline decoration-emerald-500 underline-offset-8">Logika Perulangan (Iteration Logic)</h4>
+            <p class="leading-relaxed text-slate-400">Logika ini digunakan untuk mengeksekusi blok kode secara berulang selama kondisi tertentu terpenuhi. Struktur perulangan yang digunakan adalah: <b>For, While do, dan Repeat Until.</b></p>
+          </div>
+        </div>
+        
+        <div class="grid md:grid-cols-2 gap-12 items-center">
+          <div class="bg-black/40 p-8 rounded-2xl border border-white/5 font-mono text-xs space-y-4">
+            <p class="text-emerald-400 font-bold tracking-widest">STUDI KASUS: CETAK 1-10</p>
+            <ol class="space-y-2">
+              <li>1. Mulai dengan angka 1.</li>
+              <li>2. Selama angka <= 10, cetak angka tersebut.</li>
+              <li>3. Tambahkan 1 ke angka tersebut.</li>
+              <li>4. Ulangi proses hingga angka melebihi 10.</li>
+            </ol>
+          </div>
+          <div class="flex flex-col items-center">
+            <div class="fc-shape fc-process w-32">Counter = 1</div><div class="fc-arrow"></div>
+            <div class="fc-shape fc-decision"><span>Counter <= 10?</span></div>
+            <div class="flex gap-12 mt-4">
+              <div class="flex flex-col items-center">
+                <span class="text-[9px] text-green-400">YA</span>
+                <div class="fc-shape fc-io w-24"><span>Cetak</span></div>
+                <div class="w-16 h-0.5 bg-slate-600 mt-2 -mr-32"></div>
+                <div class="h-10 w-0.5 bg-slate-600 ml-16 mt-0"></div>
+              </div>
+              <div class="flex flex-col items-center">
+                <span class="text-[9px] text-red-400">TIDAK</span>
+                <div class="fc-shape fc-terminal w-16 opacity-40">End</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section-fade space-y-12">
+      <div class="text-center">
+        <h3 class="text-4xl font-bold text-white mb-4">Laboratorium Aktivitas Mandiri</h3>
+        <p class="text-slate-400">Gunakan panduan berikut untuk menyelesaikan tugas mandiri kamu.</p>
+      </div>
+
+      <div class="space-y-8">
+        <div class="bg-slate-900 border border-white/10 rounded-3xl overflow-hidden shadow-2xl">
+          <button class="accordion-trigger w-full px-10 py-8 flex justify-between items-center hover:bg-white/5 transition-all text-left">
+            <div class="flex gap-6 items-center">
+              <span class="px-3 py-1 bg-blue-500/10 text-blue-400 border border-blue-500/20 rounded-md text-xs font-mono">AP-K10-05</span>
+              <h4 class="text-xl font-bold text-white uppercase tracking-tight">Flowchart: Prosedur Menulis Surat Izin</h4>
+            </div>
+            <svg class="w-6 h-6 text-slate-500 accordion-icon transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path d="M19 9l-7 7-7-7" stroke-width="3"/></svg>
+          </button>
+          <div class="accordion-content">
+            <div class="p-10 border-t border-white/5 bg-slate-950/40 space-y-8">
+              <div class="p-6 bg-slate-900/50 rounded-2xl space-y-4">
+                <h5 class="text-blue-400 font-bold underline">📋 Panduan Pengerjaan:</h5>
+                <ol class="text-sm text-slate-400 list-decimal ml-6 space-y-3">
+                  <li><strong>Identifikasi Langkah Tetap:</strong> Menyiapkan kertas, menulis tanggal, menulis nama/kelas, alasan, dan permohonan maaf adalah urutan (Sequence).</li>
+                  <li><strong>Titik Keputusan (Selection):</strong> Lihat poin (c) dan (d). Jika ditulis orang tua, formatnya berbeda dengan jika ditulis sendiri. Ini adalah simbol <strong>Belah Ketupat</strong>.</li>
+                  <li>Gambarkan alur dari persiapan ke tanggal, lalu percabangan format, baru masuk ke isi surat.</li>
+                </ol>
+              </div>
+
+              <div class="p-8 border-2 border-dashed border-white/10 rounded-3xl space-y-6 bg-black/20">
+                <div id="lock1" class="text-center space-y-4">
+                  <p class="text-xs text-slate-500 font-mono tracking-widest uppercase italic">Gunakan Kode Akses Dari Guru Untuk Membuka Panduan Jawaban</p>
+                  <div class="flex gap-3 max-w-sm mx-auto">
+                    <input type="password" id="pass1" class="bg-slate-900 border border-white/10 px-4 py-2 rounded-lg grow text-sm focus:border-blue-500 transition-colors outline-none" placeholder="Kode akses...">
+                    <button onclick="checkPass('pass1', 'ans1', 'lock1')" class="bg-blue-600 text-white px-6 py-2 rounded-lg text-sm font-bold hover:bg-blue-500">Unlock</button>
+                  </div>
+                </div>
+                <div id="ans1" class="hidden animate-pulse">
+                  <div class="p-6 bg-slate-900 rounded-2xl border border-blue-500/30">
+                    <p class="text-blue-400 text-[11px] font-mono mb-4">// SKEMA ALUR JADI:</p>
+                    <div class="text-xs font-mono space-y-1 text-slate-300">
+                      START &rarr; Siapkan Kertas & Alat Tulis &rarr; Tulis Tanggal &rarr; <br>
+                      [DECISION: Penulis Surat?] &rarr; <br>
+                      - JIKA ORANG TUA: Tulis Format Wali Murid &rarr;<br>
+                      - JIKA SENDIRI: Tulis Format Pribadi &rarr;<br>
+                      Tulis Nama & Kelas &rarr; Alasan &rarr; Permohonan Maaf &rarr; Tanda Tangan &rarr; Kirim &rarr; END
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="bg-slate-900 border border-white/10 rounded-3xl overflow-hidden shadow-2xl">
+          <button class="accordion-trigger w-full px-10 py-8 flex justify-between items-center hover:bg-white/5 transition-all text-left">
+            <div class="flex gap-6 items-center">
+              <span class="px-3 py-1 bg-yellow-500/10 text-yellow-400 border border-yellow-500/20 rounded-md text-xs font-mono">AP-K10-06</span>
+              <h4 class="text-xl font-bold text-white uppercase tracking-tight">Logika Pengenalan Jenis Kalimat</h4>
+            </div>
+            <svg class="w-6 h-6 text-slate-500 accordion-icon transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path d="M19 9l-7 7-7-7" stroke-width="3"/></svg>
+          </button>
+          <div class="accordion-content">
+            <div class="p-10 border-t border-white/5 bg-slate-950/40 space-y-8">
+              <div class="p-6 bg-slate-900/50 rounded-2xl space-y-4">
+                <h5 class="text-yellow-400 font-bold underline">🔍 Analisis Logika:</h5>
+                <p class="text-sm text-slate-400">Gunakan prinsip <strong>Nested Selection</strong> (Percabangan Bersarang):</p>
+                <ol class="text-xs text-slate-500 list-decimal ml-6 space-y-3 leading-relaxed italic">
+                  <li>Input kalimat yang ingin dianalisis.</li>
+                  <li>Tanya: "Apakah diakhiri tanda tanya (?)?" &rarr; Jika Ya, jenis adalah <b>Kalimat Tanya</b>.</li>
+                  <li>Jika Tidak, tanya lagi: "Apakah ada tanda seru (!) atau Kata Kerja Perintah?" &rarr; Jika Ya, jenis adalah <b>Kalimat Perintah</b>.</li>
+                  <li>Jika semua tidak, maka jenis adalah <b>Kalimat Berita</b>.</li>
+                </ol>
+              </div>
+
+              <div class="p-8 border-2 border-dashed border-white/10 rounded-3xl space-y-6 bg-black/20">
+                <div id="lock2" class="text-center space-y-4">
+                  <p class="text-xs text-slate-500 font-mono tracking-widest uppercase italic">Gunakan Kode Akses Dari Guru Untuk Membuka Panduan Jawaban</p>
+                  <div class="flex gap-3 max-w-sm mx-auto">
+                    <input type="password" id="pass2" class="bg-slate-900 border border-white/10 px-4 py-2 rounded-lg grow text-sm focus:border-yellow-500 transition-colors outline-none" placeholder="Kode akses...">
+                    <button onclick="checkPass('pass2', 'ans2', 'lock2')" class="bg-yellow-600 text-black px-6 py-2 rounded-lg text-sm font-bold hover:bg-yellow-500">Unlock</button>
+                  </div>
+                </div>
+                <div id="ans2" class="hidden animate-in fade-in">
+                   <div class="p-6 bg-slate-900 rounded-2xl border border-yellow-500/30 text-center">
+                    <p class="text-[10px] text-slate-500 italic mb-4">Gambarkan flowchart dengan tiga cabang keputusan berdasarkan tanda baca akhir kalimat.</p>
+                    <div class="inline-block p-4 border border-yellow-500/20 rounded-xl bg-black/40">
+                      <span class="text-xs font-mono text-yellow-200">START &rarr; [?] &rarr; [!] &rarr; [BERITA] &rarr; END</span>
+                    </div>
+                   </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <footer class="py-20 border-t border-white/5 text-center">
+    <p class="text-slate-600 font-mono text-xs uppercase tracking-[0.6em]">Penerbit KKA SMA Kelas X - Dela Chaerani, Bambang Subeno, Budi Rahayu</p>
+  </footer>
+
+  <script>
+    // Accordion Control
+    document.querySelectorAll('.accordion-trigger').forEach(trigger => {
+      trigger.addEventListener('click', () => {
+        const content = trigger.nextElementSibling;
+        const icon = trigger.querySelector('.accordion-icon');
+        content.classList.toggle('open');
+        icon.classList.toggle('rotate-180');
+      });
+    });
+
+    // Password Check
+    function checkPass(inputId, ansId, lockId) {
+      const p = document.getElementById(inputId).value;
+      if(p.toLowerCase() === 'birulogi') {
+        document.getElementById(ansId).classList.remove('hidden');
+        document.getElementById(lockId).classList.add('hidden');
+      } else {
+        alert("Kode akses salah!");
+      }
+    }
+
+    // Scroll Fade Animation
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) entry.target.classList.add('visible');
+      });
+    }, { threshold: 0.1 });
+    document.querySelectorAll('.section-fade').forEach(el => observer.observe(el));
+  </script>
+</body>
+</html>
