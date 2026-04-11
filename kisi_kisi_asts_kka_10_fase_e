@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Grid Indikator Birulogi</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <style>
+        body {
+            background: #020617;
+            background-image: radial-gradient(circle at top right, #1e3a8a, transparent), 
+                              radial-gradient(circle at bottom left, #0f172a, transparent);
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            font-family: 'Inter', sans-serif;
+        }
+        .glass-card {
+            background: rgba(255, 255, 255, 0.05);
+            backdrop-filter: blur(12px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            transition: all 0.2s ease;
+        }
+        .glass-card:hover {
+            background: rgba(59, 130, 246, 0.1);
+            border: 1px solid rgba(59, 130, 246, 0.5);
+            transform: scale(1.03);
+            cursor: pointer;
+        }
+        .swal2-popup {
+            background: rgba(15, 23, 42, 0.95) !important;
+            backdrop-filter: blur(20px);
+            border: 1px solid rgba(59, 130, 246, 0.3);
+            color: #fff !important;
+            border-radius: 1.5rem !important;
+        }
+    </style>
+</head>
+<body class="text-slate-200 p-4 md:p-10">
+
+    <header class="max-w-6xl mx-auto w-full mb-10">
+        <div class="flex items-center gap-4 mb-2">
+            <div class="h-1 w-12 bg-blue-500 rounded-full"></div>
+            <span class="text-blue-400 font-bold tracking-widest text-xs uppercase">Informatika & KKA</span>
+        </div>
+        <h1 class="text-3xl font-black text-white">GRID <span class="text-blue-500">KISI-KISI</span></h1>
+        <p class="text-slate-400 text-sm mt-1">Klik pada kotak untuk menampilkan detail indikator Peserta Didik.</p>
+    </header>
+
+    <main id="gridContainer" class="max-w-6xl mx-auto w-full grid grid-cols-2 md:grid-cols-4 lg:grid-cols-5 gap-4">
+        </main>
+
+    <footer class="mt-auto pt-12 pb-8 text-center text-slate-600 text-[10px] tracking-[0.4em] uppercase">
+        Platform Edukasi — <span class="text-blue-500 font-bold">birulogi</span>
+    </footer>
+
+    <script>
+        const data = [
+            { judul: "Definisi Algoritma", kisi: "Disajikan pertanyaan tentang langkah logis, Peserta Didik dapat mengidentifikasi definisi algoritma sebagai langkah yang disusun secara sistematis untuk menyelesaikan masalah." },
+            { judul: "Landasan Utama", kisi: "Disajikan soal tentang landasan utama, Peserta Didik dapat menentukan bahwa konsep algoritma dasar digunakan sebagai Fondasi sebelum melangkah ke penerapan kompleks." },
+            { judul: "Tabel IPO", kisi: "Disajikan soal tentang format penyajian tabel, Peserta Didik dapat mengidentifikasi format Tabel Input-Proses-Output (IPO) yang memisahkan masukan, proses, dan hasil." },
+            { judul: "Desain Terstruktur", kisi: "Disajikan soal tentang desain yang mudah dipahami, Peserta Didik dapat menentukan bahwa desain harus disusun terstruktur sampai dengan solusi yang tepat." },
+            { judul: "Bentuk Penyajian", kisi: "Disajikan soal tentang berbagai bentuk penyajian (naratif, pseudocode, flowchart), Peserta Didik dapat menentukan tujuannya untuk mempermudah memahami dan menerapkan solusi secara logis." },
+            { judul: "Konsep Dasar", kisi: "Disajikan soal tentang penekanan konsep dasar, Peserta Didik dapat menentukan fungsinya dalam membangun logika berpikir komputasional yang lebih kuat." },
+            { judul: "Asal Kata (Logos)", kisi: "Disajikan soal asal-usul kata, Peserta Didik dapat menyebutkan arti kata 'Logos' dari bahasa Yunani yang berarti Ilmu." },
+            { judul: "Istilah Program", kisi: "Disajikan soal tentang kumpulan instruksi pernyataan, Peserta Didik dapat mengidentifikasi istilah tersebut sebagai sebuah Program." },
+            { judul: "Logika Pemrograman", kisi: "Disajikan soal tentang landasan kerja komputer, Peserta Didik dapat mengidentifikasi istilah Logika Pemrograman sebagai dasar untuk menyelesaikan persoalan melalui kode." },
+            { judul: "Manfaat Logika", kisi: "Disajikan soal peran logika bagi pengembang, Peserta Didik dapat menentukan manfaatnya agar kode program sesuai kebutuhan dan mudah dibaca." },
+            { judul: "Prinsip Urutan", kisi: "Disajikan soal prinsip urutan, Peserta Didik dapat menjelaskan bahwa instruksi dieksekusi secara berurutan satu per satu dari atas ke bawah." },
+            { judul: "Logika Seleksi", kisi: "Disajikan soal tentang pengambilan keputusan, Peserta Didik dapat mengidentifikasi fungsi logika seleksi atau percabangan berdasarkan kondisi tertentu." },
+            { judul: "Solusi Error", kisi: "Disajikan soal kesulitan mencari kesalahan, Peserta Didik dapat menerapkan langkah yang tepat yaitu memperkuat pemahaman terhadap konsep algoritma dasar." },
+            { judul: "Merakit Meja", kisi: "Disajikan kasus merakit meja belajar, Peserta Didik dapat menerapkan prinsip algoritma dengan mengikuti setiap tahapan pada instruksi secara berurutan." },
+            { judul: "Hitung Rata-rata", kisi: "Disajikan soal rancangan program menghitung rata-rata, Peserta Didik dapat menentukan langkah proses yang tepat yaitu menjumlahkan ketiga nilai lalu membaginya dengan tiga." },
+            { judul: "Analisis Kondisi", kisi: "Disajikan soal aturan waktu bangun dan sarana sepeda, Peserta Didik dapat menganalisis tindakan yang benar jika bangun terlambat dan sepeda rusak." },
+            { judul: "Alur Aktivitas", kisi: "Disajikan soal pilihan alur aktivitas sekolah, Peserta Didik dapat menerapkan urutan langkah yang paling logis agar tidak ada tahapan yang melompat." },
+            { judul: "Logika Perulangan", kisi: "Disajikan soal tentang tugas berulang, Peserta Didik dapat menentukan prinsip Logika Perulangan (Iteration) agar penulisan kode program efisien." },
+            { judul: "Dampak Alur Terbalik", kisi: "Disajikan soal alur program terbalik, Peserta Didik dapat menganalisis dampak jika langkah menampilkan hasil dilakukan sebelum menghitung data." },
+            { judul: "Prediksi Kelulusan", kisi: "Disajikan soal aturan nilai kelulusan, Peserta Didik dapat memprediksi hasil akhir yang dikeluarkan sistem berdasarkan input nilai tertentu." },
+            { judul: "Kalimat Perintah", kisi: "Disajikan soal kalimat perintah, Peserta Didik dapat melabeli secara otomatis jenis kalimat tersebut berdasarkan isi dan tanda bacanya." },
+            { judul: "Prosedur Surat", kisi: "Disajikan soal prosedur menulis surat, Peserta Didik dapat menerapkan langkah pengabsahan melalui tanda tangan pengirim pada bagian akhir." },
+            { judul: "Evaluasi Python", kisi: "Disajikan kode Python aktivitas pagi, Peserta Didik dapat mengevaluasi dan memperbaiki alur yang tidak logis pada baris program." },
+            { judul: "Error Case-Sensitive", kisi: "Disajikan kode Python yang mengalami error, Peserta Didik dapat mengevaluasi kesalahan penulisan perintah Print (huruf kapital) yang seharusnya huruf kecil." },
+            { judul: "Variabel & Hasil", kisi: "Disajikan kode Python pilihan jalur, Peserta Didik dapat menganalisis hasil yang muncul berdasarkan nilai variabel waktu dan kondisi sepeda." },
+            { judul: "Operator Relasional", kisi: "Disajikan aturan yang diinginkan vs hasil kode, Peserta Didik dapat mengevaluasi kesalahan penggunaan operator <= yang menyebabkan hasil salah." },
+            { judul: "Koding Perbandingan", kisi: "Disajikan soal pilihan baris koding, Peserta Didik dapat menerapkan rancangan baris koding Python yang paling tepat untuk logika perbandingan." },
+            { judul: "Kurung Aritmatika", kisi: "Disajikan kode rata-rata dengan hasil salah, Peserta Didik dapat mengevaluasi perbaikan baris proses menggunakan tanda kurung aritmatika yang benar." },
+            { judul: "Operator Perbandingan", kisi: "Disajikan error pada baris pengecekan kondisi, Peserta Didik dapat mengevaluasi kesalahan penggunaan tanda = yang seharusnya == untuk membandingkan." },
+            { judul: "String Method", kisi: "Disajikan kode Python rumpang, Peserta Didik dapat menciptakan baris koding menggunakan method .endswith() agar program berfungsi mendeteksi tanda seru." }
+        ];
+
+        const container = document.getElementById('gridContainer');
+
+        data.forEach((item, index) => {
+            const gridItem = document.createElement('div');
+            gridItem.className = 'glass-card p-4 rounded-xl flex flex-col justify-center items-center text-center';
+            gridItem.innerHTML = `
+                <span class="text-[10px] text-blue-400 font-mono mb-1 opacity-60">ID-${String(index + 1).padStart(2, '0')}</span>
+                <h3 class="text-xs md:text-sm font-bold leading-tight text-white uppercase tracking-tight">${item.judul}</h3>
+            `;
+            
+            gridItem.onclick = () => {
+                Swal.fire({
+                    title: `<span style="color:#60a5fa; font-size:18px;">${item.judul}</span>`,
+                    html: `<div style="text-align:left; font-size:14px; line-height:1.6; color:#cbd5e1;">${item.kisi}</div>`,
+                    confirmButtonText: 'Tutup',
+                    confirmButtonColor: '#2563eb',
+                });
+            };
+            
+            container.appendChild(gridItem);
+        });
+    </script>
+</body>
+</html>
