@@ -82,22 +82,24 @@
                     <table class="w-full border-collapse text-xs md:text-sm">
                         <thead>
                             <tr class="bg-gray-100 text-blue-900 border-b text-center">
-                                <th class="p-2 border-r prompt-col">Prompt & Pelaksana</th>
+                                <!-- Kolom Prompt dibuat lebih pendek (w-1/3 atau sekitar 30%) -->
+                                <th class="p-2 border-r w-1/3 md:w-1/4">Prompt & Pelaksana</th>
+                                <!-- Kolom Hasil KA dibiarkan sisa lebarnya (panjang) -->
                                 <th class="p-2 border-r">Hasil KA</th>
-                                <th class="p-2 w-24">Akurat</th>
+                                <th class="p-2 w-20">Akurat</th>
                             </tr>
                         </thead>
                         <tbody class="divide-y divide-gray-200">
                             <!-- Soal A -->
                             <tr>
-                                <td class="p-3 bg-gray-50 border-r">
-                                    <p class="italic font-medium mb-2 leading-relaxed">"Tuliskan ucapan selamat ulang tahun untuk teman yang menyukai astronomi."</p>
-                                    <select id="rep_1" class="w-full border border-blue-200 p-1.5 rounded text-[11px] bg-white outline-none select-peran">
+                                <td class="p-3 bg-gray-50 border-r align-top">
+                                    <p class="italic font-medium mb-2 leading-tight text-[10px] md:text-xs">"Tuliskan ucapan selamat ulang tahun untuk teman yang menyukai astronomi."</p>
+                                    <select id="rep_1" class="w-full border border-blue-200 p-1 rounded text-[10px] bg-white outline-none select-peran">
                                         <option value="">-- Pilih Pelaksana --</option>
                                     </select>
                                 </td>
                                 <td class="p-2 border-r">
-                                    <textarea id="h_1" placeholder="Salin jawaban KA di sini..." class="w-full border rounded p-1.5 h-24 outline-none focus:ring-1 focus:ring-blue-500 text-[11px]"></textarea>
+                                    <textarea id="h_1" placeholder="Salin jawaban KA di sini..." class="w-full border rounded p-1.5 h-32 md:h-24 outline-none focus:ring-1 focus:ring-blue-500 text-[11px]"></textarea>
                                 </td>
                                 <td class="p-2 text-center">
                                     <select id="ak_1" class="w-full p-1 border rounded text-[11px] bg-white">
@@ -109,14 +111,14 @@
                             </tr>
                             <!-- Soal B -->
                             <tr>
-                                <td class="p-3 bg-gray-50 border-r">
-                                    <p class="italic font-medium mb-2 leading-relaxed">"Jelaskan mengapa kaca mobil berembun di pagi hari."</p>
-                                    <select id="rep_2" class="w-full border border-blue-200 p-1.5 rounded text-[11px] bg-white outline-none select-peran">
+                                <td class="p-3 bg-gray-50 border-r align-top">
+                                    <p class="italic font-medium mb-2 leading-tight text-[10px] md:text-xs">"Jelaskan mengapa kaca mobil berembun di pagi hari."</p>
+                                    <select id="rep_2" class="w-full border border-blue-200 p-1 rounded text-[10px] bg-white outline-none select-peran">
                                         <option value="">-- Pilih Pelaksana --</option>
                                     </select>
                                 </td>
                                 <td class="p-2 border-r">
-                                    <textarea id="h_2" placeholder="Salin jawaban KA di sini..." class="w-full border rounded p-1.5 h-24 outline-none focus:ring-1 focus:ring-blue-500 text-[11px]"></textarea>
+                                    <textarea id="h_2" placeholder="Salin jawaban KA di sini..." class="w-full border rounded p-1.5 h-32 md:h-24 outline-none focus:ring-1 focus:ring-blue-500 text-[11px]"></textarea>
                                 </td>
                                 <td class="p-2 text-center">
                                     <select id="ak_2" class="w-full p-1 border rounded text-[11px] bg-white">
@@ -128,14 +130,14 @@
                             </tr>
                             <!-- Soal C -->
                             <tr>
-                                <td class="p-3 bg-gray-50 border-r">
-                                    <p class="italic font-medium mb-2 leading-relaxed">"Jika satu orang menghabiskan 2 liter air minum per hari, berapa air yang dibutuhkan satu keluarga dengan 4 orang selama satu pekan?"</p>
-                                    <select id="rep_3" class="w-full border border-blue-200 p-1.5 rounded text-[11px] bg-white outline-none select-peran">
+                                <td class="p-3 bg-gray-50 border-r align-top">
+                                    <p class="italic font-medium mb-2 leading-tight text-[10px] md:text-xs">"Jika satu orang menghabiskan 2 liter air minum per hari, berapa air yang dibutuhkan satu keluarga dengan 4 orang selama satu pekan?"</p>
+                                    <select id="rep_3" class="w-full border border-blue-200 p-1 rounded text-[10px] bg-white outline-none select-peran">
                                         <option value="">-- Pilih Pelaksana --</option>
                                     </select>
                                 </td>
                                 <td class="p-2 border-r">
-                                    <textarea id="h_3" placeholder="Salin jawaban KA di sini..." class="w-full border rounded p-1.5 h-24 outline-none focus:ring-1 focus:ring-blue-500 text-[11px]"></textarea>
+                                    <textarea id="h_3" placeholder="Salin jawaban KA di sini..." class="w-full border rounded p-1.5 h-32 md:h-24 outline-none focus:ring-1 focus:ring-blue-500 text-[11px]"></textarea>
                                 </td>
                                 <td class="p-2 text-center">
                                     <select id="ak_3" class="w-full p-1 border rounded text-[11px] bg-white">
