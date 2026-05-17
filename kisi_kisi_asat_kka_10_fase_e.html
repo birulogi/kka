@@ -1,0 +1,851 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Kisi - Kisi ASAT ( Asesmen Sumatif Akhir Tahun ) 2026 KKA ( Koding dan Kecerdasan Artifisial )</title>
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Font Awesome Icons -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=Space+Grotesk:wght@500;700&display=swap" rel="stylesheet">
+    
+    <style>
+        body {
+            background-color: #030712;
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            overflow-x: hidden;
+        }
+        
+        .font-space {
+            font-family: 'Space Grotesk', sans-serif;
+        }
+
+        /* Animated grid overlay */
+        .grid-bg {
+            background-image: linear-gradient(rgba(29, 78, 216, 0.05) 1px, transparent 1px),
+                              linear-gradient(90deg, rgba(29, 78, 216, 0.05) 1px, transparent 1px);
+            background-size: 40px 40px;
+            background-position: center;
+        }
+
+        /* Glassmorphism Design System */
+        .glass-card {
+            background: rgba(15, 23, 42, 0.6);
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
+            border: 1px solid rgba(255, 255, 255, 0.06);
+            transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
+        .glass-card:hover {
+            background: rgba(30, 41, 59, 0.7);
+            border-color: rgba(59, 130, 246, 0.4);
+            transform: translateY(-6px) scale(1.02);
+            box-shadow: 0 12px 30px -10px rgba(59, 130, 246, 0.3),
+                        0 0 15px 1px rgba(59, 130, 246, 0.1);
+        }
+
+        /* Glow effects */
+        .glow-blue {
+            box-shadow: 0 0 30px 2px rgba(59, 130, 246, 0.2);
+        }
+        .glow-purple {
+            box-shadow: 0 0 30px 2px rgba(139, 92, 246, 0.2);
+        }
+
+        /* Custom scrollbar */
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #030712;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #1e293b;
+            border-radius: 9999px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: #3b82f6;
+        }
+
+        /* Dynamic keyframes for staggering entrance */
+        @keyframes revealUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px) scale(0.95);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0) scale(1);
+            }
+        }
+
+        .reveal-item {
+            opacity: 0;
+            animation: revealUp 0.6s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+        }
+
+        /* Custom smooth transition classes */
+        .transition-grid {
+            transition: opacity 0.3s ease, transform 0.3s ease, max-height 0.3s ease;
+        }
+    </style>
+</head>
+<body class="text-slate-100 min-h-screen relative flex flex-col overflow-y-auto">
+
+    <!-- Background Animated Canvas (Neural Net/AI Style) -->
+    <canvas id="neuralCanvas" class="absolute inset-0 w-full h-full pointer-events-none z-0"></canvas>
+    <div class="grid-bg absolute inset-0 w-full h-full pointer-events-none z-0"></div>
+
+    <div class="max-w-6xl mx-auto w-full px-4 md:px-8 py-8 relative z-10 flex-grow flex flex-col justify-between">
+        
+        <!-- Header Section -->
+        <header class="mb-10 text-center md:text-left relative">
+            <div class="inline-flex items-center gap-2 px-3 py-1 bg-blue-900/30 border border-blue-500/30 rounded-full mb-4 animate-pulse">
+                <span class="w-2 h-2 rounded-full bg-blue-400"></span>
+                <span class="text-[10px] md:text-xs text-blue-300 font-bold tracking-wider uppercase font-space">Sistem Evaluasi Birulogi</span>
+            </div>
+            
+            <h1 class="text-3xl md:text-5xl font-extrabold tracking-tight text-transparent bg-clip-text bg-gradient-to-r from-white via-slate-100 to-blue-400 leading-tight">
+                KISI - KISI ASAT <span class="font-space text-blue-500 font-bold">2026</span>
+            </h1>
+            <p class="text-sm md:text-lg text-blue-300/80 mt-1 font-semibold">
+                KKA <span class="text-slate-300">(Koding & Kecerdasan Artifisial)</span>
+            </p>
+            <p class="text-slate-400 text-xs md:text-sm mt-3 max-w-2xl leading-relaxed">
+                Platform kurikulum interaktif. Gunakan pencarian, saring materi berdasarkan tingkat kesulitan kognitif, dan klik kartu indikator untuk mengakses detail kompetensi lengkap.
+            </p>
+        </header>
+
+        <!-- Interactive Analytics Dashboard -->
+        <section class="grid grid-cols-2 lg:grid-cols-4 gap-4 mb-8">
+            <div class="glass-card p-4 rounded-2xl flex flex-col justify-between relative overflow-hidden group">
+                <div class="absolute -right-6 -bottom-6 w-20 h-20 bg-blue-500/10 rounded-full filter blur-xl group-hover:bg-blue-500/20 transition-all"></div>
+                <span class="text-xs text-slate-400 uppercase tracking-wider font-semibold">Total Indikator</span>
+                <div class="flex items-baseline gap-2 mt-2">
+                    <span class="text-3xl md:text-4xl font-extrabold font-space text-white">30</span>
+                    <span class="text-xs text-blue-400 font-medium">Soal Ujian</span>
+                </div>
+                <div class="w-full bg-slate-800 h-1.5 rounded-full mt-3 overflow-hidden">
+                    <div class="bg-blue-500 h-full w-full rounded-full"></div>
+                </div>
+            </div>
+
+            <div class="glass-card p-4 rounded-2xl flex flex-col justify-between relative overflow-hidden group">
+                <div class="absolute -right-6 -bottom-6 w-20 h-20 bg-emerald-500/10 rounded-full filter blur-xl group-hover:bg-emerald-500/20 transition-all"></div>
+                <span class="text-xs text-slate-400 uppercase tracking-wider font-semibold">Tingkat LOTS (C1-C2)</span>
+                <div class="flex items-baseline gap-2 mt-2">
+                    <span class="text-3xl md:text-4xl font-extrabold font-space text-emerald-400">14</span>
+                    <span class="text-xs text-emerald-500/80 font-medium">46.7%</span>
+                </div>
+                <div class="w-full bg-slate-800 h-1.5 rounded-full mt-3 overflow-hidden">
+                    <div class="bg-emerald-500 h-full w-[47%] rounded-full animate-pulse"></div>
+                </div>
+            </div>
+
+            <div class="glass-card p-4 rounded-2xl flex flex-col justify-between relative overflow-hidden group">
+                <div class="absolute -right-6 -bottom-6 w-20 h-20 bg-amber-500/10 rounded-full filter blur-xl group-hover:bg-amber-500/20 transition-all"></div>
+                <span class="text-xs text-slate-400 uppercase tracking-wider font-semibold">Tingkat MOTS (C3)</span>
+                <div class="flex items-baseline gap-2 mt-2">
+                    <span class="text-3xl md:text-4xl font-extrabold font-space text-amber-400">10</span>
+                    <span class="text-xs text-amber-500/80 font-medium">33.3%</span>
+                </div>
+                <div class="w-full bg-slate-800 h-1.5 rounded-full mt-3 overflow-hidden">
+                    <div class="bg-amber-500 h-full w-[33%] rounded-full animate-pulse"></div>
+                </div>
+            </div>
+
+            <div class="glass-card p-4 rounded-2xl flex flex-col justify-between relative overflow-hidden group">
+                <div class="absolute -right-6 -bottom-6 w-20 h-20 bg-rose-500/10 rounded-full filter blur-xl group-hover:bg-rose-500/20 transition-all"></div>
+                <span class="text-xs text-slate-400 uppercase tracking-wider font-semibold">Tingkat HOTS (C4-C5)</span>
+                <div class="flex items-baseline gap-2 mt-2">
+                    <span class="text-3xl md:text-4xl font-extrabold font-space text-rose-400">6</span>
+                    <span class="text-xs text-rose-500/80 font-medium">20%</span>
+                </div>
+                <div class="w-full bg-slate-800 h-1.5 rounded-full mt-3 overflow-hidden">
+                    <div class="bg-rose-500 h-full w-[20%] rounded-full animate-pulse"></div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Search and Interactive Filters System -->
+        <section class="glass-card p-4 rounded-2xl mb-8 flex flex-col md:flex-row gap-4 items-center justify-between">
+            <!-- Animated Search Bar -->
+            <div class="relative w-full md:w-72 group">
+                <i class="fa-solid fa-magnifying-glass absolute left-4 top-1/2 -translate-y-1/2 text-slate-400 group-focus-within:text-blue-400 transition-colors"></i>
+                <input type="text" id="searchInput" placeholder="Cari materi / indikator..." 
+                       class="w-full pl-11 pr-4 py-2.5 bg-slate-900/60 border border-slate-700/50 rounded-xl text-sm text-white placeholder-slate-400 focus:outline-none focus:border-blue-500/80 focus:ring-1 focus:ring-blue-500/40 transition-all">
+            </div>
+
+            <!-- Filter Controls -->
+            <div class="flex flex-wrap gap-2 w-full md:w-auto justify-start md:justify-end">
+                <button onclick="applyFilter('ALL', this)" class="filter-btn px-4 py-2 text-xs font-bold rounded-xl uppercase tracking-wider bg-blue-600 text-white shadow-lg shadow-blue-500/25 transition-all">Semua</button>
+                <button onclick="applyFilter('LOTS', this)" class="filter-btn px-4 py-2 text-xs font-bold rounded-xl uppercase tracking-wider bg-slate-800/80 text-slate-300 border border-slate-700/50 hover:bg-slate-700 hover:text-white transition-all">LOTS</button>
+                <button onclick="applyFilter('MOTS', this)" class="filter-btn px-4 py-2 text-xs font-bold rounded-xl uppercase tracking-wider bg-slate-800/80 text-slate-300 border border-slate-700/50 hover:bg-slate-700 hover:text-white transition-all">MOTS</button>
+                <button onclick="applyFilter('HOTS', this)" class="filter-btn px-4 py-2 text-xs font-bold rounded-xl uppercase tracking-wider bg-slate-800/80 text-slate-300 border border-slate-700/50 hover:bg-slate-700 hover:text-white transition-all">HOTS</button>
+                <button onclick="applyFilter('AP', this)" class="filter-btn px-4 py-2 text-xs font-bold rounded-xl uppercase tracking-wider bg-slate-800/80 text-slate-300 border border-slate-700/50 hover:bg-slate-700 hover:text-white transition-all">Koding</button>
+                <button onclick="applyFilter('KA', this)" class="filter-btn px-4 py-2 text-xs font-bold rounded-xl uppercase tracking-wider bg-slate-800/80 text-slate-300 border border-slate-700/50 hover:bg-slate-700 hover:text-white transition-all">Kecerdasan Artifisial</button>
+            </div>
+        </section>
+
+        <!-- Main Interactive Grid Container -->
+        <main id="gridContainer" class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-4 relative z-10 min-h-[400px]">
+            <!-- JavaScript dynamically renders fully animated indicator cards here -->
+        </main>
+
+        <!-- Empty State Container -->
+        <div id="emptyState" class="hidden flex-col items-center justify-center py-20 text-center relative z-10">
+            <i class="fa-solid fa-circle-exclamation text-slate-600 text-5xl mb-4 animate-bounce"></i>
+            <h3 class="text-lg font-bold text-slate-300">Indikator Tidak Ditemukan</h3>
+            <p class="text-sm text-slate-500 mt-1">Coba sesuaikan kata kunci pencarian atau filter Anda.</p>
+        </div>
+
+        <!-- Custom Futuristic Glassmorphism Detail Modal -->
+        <div id="detailModal" class="fixed inset-0 z-50 flex items-center justify-center p-4 bg-slate-950/80 backdrop-blur-md opacity-0 pointer-events-none transition-all duration-300">
+            <div id="modalContainer" class="glass-card w-full max-w-xl rounded-3xl overflow-hidden shadow-2xl transform scale-95 transition-all duration-300">
+                <!-- Modal Head Header -->
+                <div class="relative p-6 border-b border-slate-800 flex justify-between items-start bg-slate-900/40">
+                    <div>
+                        <span id="modalMeta" class="text-[10px] bg-blue-900/40 text-blue-400 border border-blue-500/30 px-2.5 py-1 rounded-md font-mono font-bold tracking-wider">SOAL-01</span>
+                        <h2 id="modalTitle" class="text-lg md:text-xl font-bold mt-2 text-white uppercase tracking-tight">Judul Indikator</h2>
+                    </div>
+                    <button onclick="closeModal()" class="w-8 h-8 rounded-full bg-slate-800 hover:bg-slate-700 flex items-center justify-center text-slate-400 hover:text-white transition-all">
+                        <i class="fa-solid fa-xmark"></i>
+                    </button>
+                </div>
+                <!-- Modal Body -->
+                <div class="p-6 space-y-4 text-sm leading-relaxed text-slate-300">
+                    <div>
+                        <span class="text-xs text-slate-500 font-semibold block mb-1">Capaian Pembelajaran:</span>
+                        <p id="modalCP" class="bg-slate-900/30 p-3 rounded-xl border border-slate-800/80 text-slate-300 font-medium">Capaian Pembelajaran</p>
+                    </div>
+                    <div>
+                        <span class="text-xs text-slate-500 font-semibold block mb-1">Tujuan Pembelajaran:</span>
+                        <p id="modalTP" class="bg-slate-900/30 p-3 rounded-xl border border-slate-800/80 text-slate-300 font-medium">Tujuan Pembelajaran</p>
+                    </div>
+                    <div class="grid grid-cols-2 gap-4">
+                        <div>
+                            <span class="text-xs text-slate-500 font-semibold block mb-1">Tingkat Kognitif:</span>
+                            <p id="modalTingkat" class="font-bold text-white font-space">LOTS</p>
+                        </div>
+                        <div>
+                            <span class="text-xs text-slate-500 font-semibold block mb-1">Ranah Kognitif:</span>
+                            <p id="modalRanah" class="font-bold text-white font-space">C1 (Mengingat)</p>
+                        </div>
+                    </div>
+                    <hr class="border-slate-800">
+                    <div>
+                        <span class="text-xs text-blue-400 font-bold block mb-1.5 uppercase tracking-wider"><i class="fa-solid fa-circle-nodes mr-1"></i> Indikator Kompetensi Ujian:</span>
+                        <p id="modalKisi" class="text-white text-base bg-blue-950/20 p-4 border border-blue-900/40 rounded-2xl leading-relaxed">Indikator lengkap di sini.</p>
+                    </div>
+                </div>
+                <!-- Modal Action Footer -->
+                <div class="px-6 py-4 bg-slate-900/40 border-t border-slate-800 flex justify-end">
+                    <button onclick="closeModal()" class="px-6 py-2 bg-blue-600 hover:bg-blue-500 text-white font-bold text-xs rounded-xl uppercase tracking-wider transition-all shadow-lg shadow-blue-500/25">Pahami Indikator</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Footer -->
+        <footer class="mt-auto pt-12 pb-4 text-center text-slate-600 text-[10px] tracking-[0.4em] uppercase relative z-10">
+            Platform Edukasi — <span class="text-blue-500 font-bold">birulogi</span>
+        </footer>
+    </div>
+
+    <script>
+        // Data set representing ASAT 2026 Koding dan Kecerdasan Artifisial
+        const data = [
+            { 
+                no: 1, 
+                judul: "Definisi Algoritma", 
+                ranah: "C1 (Mengingat)", 
+                tingkat: "LOTS", 
+                kategori: "AP",
+                cp: "Algoritma Pemrograman",
+                tp: "Membandingkan beberapa algoritma dan menerapkan algoritma pemrograman untuk menghasilkan aplikasi.",
+                kisi: "Disajikan pertanyaan tentang langkah penyelesaian masalah, Peserta Didik dapat mengidentifikasi definisi istilah yang merujuk pada langkah sistematis tersebut." 
+            },
+            { 
+                no: 2, 
+                judul: "Peran Algoritma Dasar", 
+                ranah: "C2 (Memahami)", 
+                tingkat: "LOTS", 
+                kategori: "AP",
+                cp: "Algoritma Pemrograman",
+                tp: "Membandingkan beberapa algoritma dan menerapkan algoritma pemrograman untuk menghasilkan aplikasi.",
+                kisi: "Disajikan soal mengenai tahapan awal pemrograman, Peserta Didik dapat menentukan posisi algoritma sebagai landasan sebelum masuk ke implementasi yang lebih rumit." 
+            },
+            { 
+                no: 3, 
+                judul: "Format IPO", 
+                ranah: "C1 (Mengingat)", 
+                tingkat: "LOTS", 
+                kategori: "AP",
+                cp: "Algoritma Pemrograman",
+                tp: "Membandingkan beberapa algoritma dan menerapkan algoritma pemrograman untuk menghasilkan aplikasi.",
+                kisi: "Disajikan ilustrasi penyajian data, Peserta Didik dapat mengidentifikasi format tabel yang memisahkan bagian masukan, pengolahan, dan hasil keluaran." 
+            },
+            { 
+                no: 4, 
+                judul: "Desain Algoritma", 
+                ranah: "C2 (Memahami)", 
+                tingkat: "LOTS", 
+                kategori: "AP",
+                cp: "Algoritma Pemrograman",
+                tp: "Membandingkan beberapa algoritma dan menerapkan algoritma pemrograman untuk menghasilkan aplikasi.",
+                kisi: "Disajikan kriteria alur kerja, Peserta Didik dapat menentukan karakteristik desain yang baik agar solusi dapat dicapai secara tepat dan terstruktur." 
+            },
+            { 
+                no: 5, 
+                judul: "Tujuan Penyajian", 
+                ranah: "C2 (Memahami)", 
+                tingkat: "LOTS", 
+                kategori: "AP",
+                cp: "Algoritma Pemrograman",
+                tp: "Membandingkan beberapa algoritma dan menerapkan algoritma pemrograman untuk menghasilkan aplikasi.",
+                kisi: "Disajikan berbagai metode documentation alur (naratif, kode semu, diagram alir), Peserta Didik dapat menentukan tujuan utama dari penggunaan berbagai bentuk penyajian tersebut." 
+            },
+            { 
+                no: 6, 
+                judul: "Berpikir Komputasional", 
+                ranah: "C2 (Memahami)", 
+                tingkat: "LOTS", 
+                kategori: "AP",
+                cp: "Algoritma Pemrograman",
+                tp: "Membandingkan beberapa algoritma dan menerapkan algoritma pemrograman untuk menghasilkan aplikasi.",
+                kisi: "Disajikan soal mengenai penguatan logika dasar, Peserta Didik dapat menentukan hubungannya dengan kemampuan memecahkan masalah secara komputasi." 
+            },
+            { 
+                no: 7, 
+                judul: "Etimologi Logika", 
+                ranah: "C1 (Mengingat)", 
+                tingkat: "LOTS", 
+                kategori: "AP",
+                cp: "Algoritma Pemrograman",
+                tp: "Membandingkan beberapa algoritma dan menerapkan algoritma pemrograman untuk menghasilkan aplikasi.",
+                kisi: "Disajikan asal-usul istilah dari bahasa Yunani, Peserta Didik dapat menyebutkan makna harfiah dari akar kata tersebut." 
+            },
+            { 
+                no: 8, 
+                judul: "Definisi Program", 
+                ranah: "C1 (Mengingat)", 
+                tingkat: "LOTS", 
+                kategori: "AP",
+                cp: "Algoritma Pemrograman",
+                tp: "Membandingkan beberapa algoritma dan menerapkan algoritma pemrograman untuk menghasilkan aplikasi.",
+                kisi: "Disajikan deskripsi tentang sekumpulan instruksi yang dijalankan komputer, Peserta Didik dapat mengidentifikasi istilah teknis untuk kumpulan instruksi tersebut." 
+            },
+            { 
+                no: 9, 
+                judul: "Logika Pemrograman", 
+                ranah: "C1 (Mengingat)", 
+                tingkat: "LOTS", 
+                kategori: "AP",
+                cp: "Algoritma Pemrograman",
+                tp: "Membandingkan beberapa algoritma dan menerapkan algoritma pemrograman untuk menghasilkan aplikasi.",
+                kisi: "Disajikan soal mengenai prinsip kerja perangkat lunak, Peserta Didik dapat mengidentifikasi konsep yang digunakan untuk menyelesaikan masalah melalui baris perintah." 
+            },
+            { 
+                no: 10, 
+                judul: "Peran Pengembang", 
+                ranah: "C2 (Memahami)", 
+                tingkat: "LOTS", 
+                kategori: "AP",
+                cp: "Algoritma Pemrograman",
+                tp: "Membandingkan beberapa algoritma dan menerapkan algoritma pemrograman untuk menghasilkan aplikasi.",
+                kisi: "Disajikan kasus penulisan kode, Peserta Didik dapat menentukan manfaat penerapan logika yang baik bagi pengembang dalam proses pemeliharaan kode." 
+            },
+            { 
+                no: 11, 
+                judul: "Logika Perulangan", 
+                ranah: "C1 (Mengingat)", 
+                tingkat: "LOTS", 
+                kategori: "AP",
+                cp: "Algoritma Pemrograman",
+                tp: "Membandingkan beberapa algoritma dan menerapkan algoritma pemrograman untuk menghasilkan aplikasi.",
+                kisi: "Disajikan kasus pekerjaan yang dilakukan berkali-kali, Peserta Didik dapat menentukan prinsip logika yang paling efisien untuk meminimalkan penulisan instruksi." 
+            },
+            { 
+                no: 12, 
+                judul: "Labeling Kalimat", 
+                ranah: "C2 (Memahami)", 
+                tingkat: "LOTS", 
+                kategori: "AP",
+                cp: "Algoritma Pemrograman",
+                tp: "Membandingkan beberapa algoritma dan menerapkan algoritma pemrograman untuk menghasilkan aplikasi.",
+                kisi: "Disajikan beberapa jenis kalimat dalam konteks pemrograman, Peserta Didik dapat mengkategorikan jenis kalimat tersebut berdasarkan struktur dan fungsinya." 
+            },
+            { 
+                no: 13, 
+                judul: "Sequence Logic", 
+                ranah: "C3 (Menerapkan)", 
+                tingkat: "MOTS", 
+                kategori: "AP",
+                cp: "Algoritma Pemrograman",
+                tp: "Membandingkan beberapa algoritma dan menerapkan algoritma pemrograman untuk menghasilkan aplikasi.",
+                kisi: "Disajikan skenario eksekusi perintah, Peserta Didik dapat menerapkan prinsip urutan jalannya instruksi secara tepat dari awal hingga akhir." 
+            },
+            { 
+                no: 14, 
+                judul: "Selection Logic", 
+                ranah: "C3 (Menerapkan)", 
+                tingkat: "MOTS", 
+                kategori: "AP",
+                cp: "Algoritma Pemrograman",
+                tp: "Membandingkan beberapa algoritma dan menerapkan algoritma pemrograman untuk menghasilkan aplikasi.",
+                kisi: "Disajikan kondisi tertentu dalam sebuah alur, Peserta Didik dapat menerapkan fungsi logika percabangan untuk mengambil keputusan berdasarkan syarat yang ada." 
+            },
+            { 
+                no: 15, 
+                judul: "Langkah Debugging", 
+                ranah: "C3 (Menerapkan)", 
+                tingkat: "MOTS", 
+                kategori: "AP",
+                cp: "Algoritma Pemrograman",
+                tp: "Membandingkan beberapa algoritma dan menerapkan algoritma pemrograman untuk menghasilkan aplikasi.",
+                kisi: "Disajikan situasi ketika terjadi kesalahan logika, Peserta Didik dapat menerapkan tindakan yang paling efektif untuk menemukan solusi berdasarkan konsep dasar." 
+            },
+            { 
+                no: 16, 
+                judul: "Penerapan Algoritma", 
+                ranah: "C3 (Menerapkan)", 
+                tingkat: "MOTS", 
+                kategori: "AP",
+                cp: "Algoritma Pemrograman",
+                tp: "Membandingkan beberapa algoritma dan menerapkan algoritma pemrograman untuk menghasilkan aplikasi.",
+                kisi: "Disajikan kasus instruksi perakitan barang, Peserta Didik dapat menerapkan hubungan antara mengikuti panduan tertulis dengan prinsip dasar algoritma." 
+            },
+            { 
+                no: 17, 
+                judul: "Analisis Proses", 
+                ranah: "C3 (Menerapkan)", 
+                tingkat: "MOTS", 
+                kategori: "AP",
+                cp: "Algoritma Pemrograman",
+                tp: "Membandingkan beberapa algoritma dan menerapkan algoritma pemrograman untuk menghasilkan aplikasi.",
+                kisi: "Disajikan rancangan perhitungan matematika sederhana, Peserta Didik dapat menerapkan urutan operasi aritmatika yang benar untuk mendapatkan hasil yang diinginkan." 
+            },
+            { 
+                no: 18, 
+                judul: "Urutan Logis", 
+                ranah: "C3 (Menerapkan)", 
+                tingkat: "MOTS", 
+                kategori: "AP",
+                cp: "Algoritma Pemrograman",
+                tp: "Membandingkan beberapa algoritma dan menerapkan algoritma pemrograman untuk menghasilkan aplikasi.",
+                kisi: "Disajikan daftar aktivitas sekolah yang acak, Peserta Didik dapat menerapkan penyusunan kembali alur tersebut menjadi rangkaian yang logis dan efisien." 
+            },
+            { 
+                no: 19, 
+                judul: "Hasil Logika Seleksi", 
+                ranah: "C3 (Menerapkan)", 
+                tingkat: "MOTS", 
+                kategori: "AP",
+                cp: "Algoritma Pemrograman",
+                tp: "Membandingkan beberapa algoritma dan menerapkan algoritma pemrograman untuk menghasilkan aplikasi.",
+                kisi: "Disajikan sebuah aturan atau ambang batas nilai, Peserta Didik dapat menerapkan data masukan untuk memprediksi status akhir yang dihasilkan sistem." 
+            },
+            { 
+                no: 20, 
+                judul: "Prosedur Validasi", 
+                ranah: "C3 (Menerapkan)", 
+                tingkat: "MOTS", 
+                kategori: "AP",
+                cp: "Algoritma Pemrograman",
+                tp: "Membandingkan beberapa algoritma dan menerapkan algoritma pemrograman untuk menghasilkan aplikasi.",
+                kisi: "Disajikan langkah-langkah pembuatan dokumen formal, Peserta Didik dapat menerapkan prosedur validasi yang harus diletakkan pada bagian penutup." 
+            },
+            { 
+                no: 21, 
+                judul: "Analisis Kondisi", 
+                ranah: "C4 (Menganalisis)", 
+                tingkat: "HOTS", 
+                kategori: "AP",
+                cp: "Algoritma Pemrograman",
+                tp: "Membandingkan beberapa algoritma dan menerapkan algoritma pemrograman untuk menghasilkan aplikasi.",
+                kisi: "Disajikan beberapa variabel kendala (waktu dan sarana), Peserta Didik dapat menganalisis keputusan yang paling tepat jika semua kondisi tersebut terjadi secara bersamaan." 
+            },
+            { 
+                no: 22, 
+                judul: "Dampak Alur Salah", 
+                ranah: "C4 (Menganalisis)", 
+                tingkat: "HOTS", 
+                kategori: "AP",
+                cp: "Algoritma Pemrograman",
+                tp: "Membandingkan beberapa algoritma dan menerapkan algoritma pemrograman untuk menghasilkan aplikasi.",
+                kisi: "Disajikan skema alur kerja yang tidak berurutan, Peserta Didik dapat menganalisis konsekuensi yang terjadi pada keluaran sistem jika langkah-langkahnya tertukar." 
+            },
+            { 
+                no: 23, 
+                judul: "Evaluasi Alur Python", 
+                ranah: "C5 (Mengevaluasi)", 
+                tingkat: "HOTS", 
+                kategori: "AP",
+                cp: "Algoritma Pemrograman",
+                tp: "Membandingkan beberapa algoritma dan menerapkan algoritma pemrograman untuk menghasilkan aplikasi.",
+                kisi: "Disajikan potongan kode Python mengenai aktivitas tertentu, Peserta Didik dapat mengevaluasi dan memperbaiki letak kesalahan baris program agar alurnya menjadi logis." 
+            },
+            { 
+                no: 24, 
+                judul: "Case Sensitivity Python", 
+                ranah: "C5 (Mengevaluasi)", 
+                tingkat: "HOTS", 
+                kategori: "AP",
+                cp: "Algoritma Pemrograman",
+                tp: "Membandingkan beberapa algoritma dan menerapkan algoritma pemrograman untuk menghasilkan aplikasi.",
+                kisi: "Disajikan kode program yang tidak berjalan karena kesalahan tipografi, Peserta Didik dapat mengevaluasi perbedaan penulisan huruf besar dan kecil pada perintah dasar." 
+            },
+            { 
+                no: 25, 
+                judul: "Analisis Hasil Output", 
+                ranah: "C4 (Menganalisis)", 
+                tingkat: "HOTS", 
+                kategori: "AP",
+                cp: "Algoritma Pemrograman",
+                tp: "Membandingkan beberapa algoritma dan menerapkan algoritma pemrograman untuk menghasilkan aplikasi.",
+                kisi: "Disajikan kode Python dengan variabel kondisi, Peserta Didik dapat menganalisis hasil yang akan muncul di layar berdasarkan nilai yang tersimpan dalam variabel tersebut." 
+            },
+            { 
+                no: 26, 
+                judul: "Fondasi Utama LLM", 
+                ranah: "C1 (Mengingat)", 
+                tingkat: "LOTS", 
+                kategori: "KA",
+                cp: "Pemanfaatan dan Pengembangan Kecerdasan Artifisial",
+                tp: "Menerapkan prompt engineering pada KA generatif, mengevaluasi konten berbasis KA, dan memahami AI system design melalui proses design thinking.",
+                kisi: "Disajikan deskripsi mengenai pemrosesan pangkalan data teks skala besar pada kecerdasan artifisial generatif, Peserta Didik dapat mengidentifikasi istilah teknis arsitektur model tersebut." 
+            },
+            { 
+                no: 27, 
+                judul: "Zero-Shot Prompting", 
+                ranah: "C1 (Mengingat)", 
+                tingkat: "LOTS", 
+                kategori: "KA",
+                cp: "Pemanfaatan dan Pengembangan Kecerdasan Artifisial",
+                tp: "Menerapkan prompt engineering pada KA generatif, mengevaluasi konten berbasis KA, dan memahami AI system design melalui proses design thinking.",
+                kisi: "Disajikan deskripsi mengenai strategi pemberian instruksi langsung tanpa sampel rujukan, Peserta Didik dapat mengidentifikasi nama ragam pendekatan jumlah contoh tersebut." 
+            },
+            { 
+                no: 28, 
+                judul: "One-Shot Prompting", 
+                ranah: "C3 (Menerapkan)", 
+                tingkat: "MOTS", 
+                kategori: "KA",
+                cp: "Pemanfaatan dan Pengembangan Kecerdasan Artifisial",
+                tp: "Menerapkan prompt engineering pada KA generatif, mengevaluasi konten berbasis KA, dan memahami AI system design melalui proses design thinking.",
+                kisi: "Disajikan ilustrasi potongan baris pesan yang menyertakan satu buah sampel acuan konversi teks gramatikal, Peserta Didik dapat menerapkan aturan pola tersebut untuk menentukan ragam pendekatan instruksi." 
+            },
+            { 
+                no: 29, 
+                judul: "Komponen Persona PGTC", 
+                ranah: "C3 (Menerapkan)", 
+                tingkat: "MOTS", 
+                kategori: "KA",
+                cp: "Pemanfaatan dan Pengembangan Kecerdasan Artifisial",
+                tp: "Menerapkan prompt engineering pada KA generatif, mengevaluasi konten berbasis KA, dan memahami AI system design melalui proses design thinking.",
+                kisi: "Disajikan sebaris instruksi spesifik pengkondisian peran profesi tertentu kepada sistem kecerdasan artifisial, Peserta Didik dapat menerapkan konsep analisis teks untuk mengidentifikasi komponen Persona (P)." 
+            },
+            { 
+                no: 30, 
+                judul: "Analisis Struktur PGTC", 
+                ranah: "C4 (Menganalisis)", 
+                tingkat: "HOTS", 
+                kategori: "KA",
+                cp: "Pemanfaatan dan Pengembangan Kecerdasan Artifisial",
+                tp: "Menerapkan prompt engineering pada KA generatif, mengevaluasi konten berbasis KA, dan memahami AI system design melalui proses design thinking.",
+                kisi: "Disajikan sebuah paragraf draf instruksi lengkap berbasis studi kasus pembuatan modul ajar sekolah, Peserta Didik dapat menganalisis urutan penafsiran kerangka kerja PGTC secara tepat." 
+            }
+        ];
+
+        // Web Audio API Sound Generator for futuristic sound feedback
+        let audioCtx;
+        function getAudioContext() {
+            if (!audioCtx) {
+                audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+            }
+            return audioCtx;
+        }
+
+        function playSciFiSound(freq, duration, type = 'sine') {
+            try {
+                const ctx = getAudioContext();
+                if (ctx.state === 'suspended') {
+                    ctx.resume();
+                }
+                const osc = ctx.createOscillator();
+                const gain = ctx.createGain();
+
+                osc.type = type;
+                osc.frequency.setValueAtTime(freq, ctx.currentTime);
+                // Frequency slide for tech glide sound
+                osc.frequency.exponentialRampToValueAtTime(freq * 1.5, ctx.currentTime + duration);
+
+                gain.gain.setValueAtTime(0.04, ctx.currentTime);
+                gain.gain.exponentialRampToValueAtTime(0.0001, ctx.currentTime + duration);
+
+                osc.connect(gain);
+                gain.connect(ctx.destination);
+
+                osc.start();
+                osc.stop(ctx.currentTime + duration);
+            } catch (e) {
+                // Audio not allowed or failed
+            }
+        }
+
+        // SFX Preset Events
+        function playHoverSound() {
+            playSciFiSound(800, 0.08, 'triangle');
+        }
+
+        function playClickSound() {
+            playSciFiSound(440, 0.2, 'sine');
+            setTimeout(() => playSciFiSound(660, 0.15, 'sine'), 50);
+        }
+
+        // Current Filter States
+        let currentFilter = 'ALL';
+        let searchQuery = '';
+
+        const container = document.getElementById('gridContainer');
+        const emptyState = document.getElementById('emptyState');
+        const searchInput = document.getElementById('searchInput');
+
+        // Render data dynamically with cascading stagger animations
+        function renderGrid() {
+            container.innerHTML = '';
+            
+            // Filter logic
+            const filteredData = data.filter(item => {
+                const matchesSearch = item.judul.toLowerCase().includes(searchQuery.toLowerCase()) || 
+                                      item.kisi.toLowerCase().includes(searchQuery.toLowerCase()) ||
+                                      item.ranah.toLowerCase().includes(searchQuery.toLowerCase());
+                
+                if (!matchesSearch) return false;
+                
+                if (currentFilter === 'ALL') return true;
+                if (currentFilter === 'LOTS') return item.tingkat === 'LOTS';
+                if (currentFilter === 'MOTS') return item.tingkat === 'MOTS';
+                if (currentFilter === 'HOTS') return item.tingkat === 'HOTS';
+                if (currentFilter === 'AP') return item.kategori === 'AP';
+                if (currentFilter === 'KA') return item.kategori === 'KA';
+                
+                return true;
+            });
+
+            // Handle empty search/filters
+            if (filteredData.length === 0) {
+                container.classList.add('hidden');
+                emptyState.classList.remove('hidden');
+                emptyState.classList.add('flex');
+                return;
+            } else {
+                container.classList.remove('hidden');
+                emptyState.classList.add('hidden');
+                emptyState.classList.remove('flex');
+            }
+
+            // Create DOM elements
+            filteredData.forEach((item, index) => {
+                const gridItem = document.createElement('div');
+                gridItem.className = 'glass-card p-4 rounded-2xl flex flex-col justify-between items-center text-center relative overflow-hidden group reveal-item transition-grid';
+                
+                // Add stagger delay
+                gridItem.style.animationDelay = `${index * 30}ms`;
+
+                // Theme color based on cognitive level
+                let badgeClass = "bg-slate-800 text-slate-400";
+                let hoverColorGlow = "hover:border-blue-500/50";
+                
+                if (item.tingkat === 'LOTS') {
+                    badgeClass = "bg-emerald-950/40 text-emerald-400 border border-emerald-500/20";
+                    hoverColorGlow = "hover:border-emerald-500/40 hover:shadow-[0_10px_25px_-10px_rgba(16,185,129,0.3)]";
+                } else if (item.tingkat === 'MOTS') {
+                    badgeClass = "bg-amber-950/40 text-amber-400 border border-amber-500/20";
+                    hoverColorGlow = "hover:border-amber-500/40 hover:shadow-[0_10px_25px_-10px_rgba(245,158,11,0.3)]";
+                } else if (item.tingkat === 'HOTS') {
+                    badgeClass = "bg-rose-950/40 text-rose-400 border border-rose-500/20";
+                    hoverColorGlow = "hover:border-rose-500/40 hover:shadow-[0_10px_25px_-10px_rgba(244,63,94,0.3)]";
+                }
+
+                // Add conditional color hover
+                gridItem.className += ` ${hoverColorGlow}`;
+
+                // Inner Structure with hover shine
+                gridItem.innerHTML = `
+                    <div class="absolute -inset-y-0 -inset-x-20 bg-gradient-to-r from-transparent via-white/5 to-transparent skew-x-12 translate-x-[-100%] group-hover:translate-x-[200%] transition-transform duration-1000 ease-out"></div>
+                    
+                    <div class="flex justify-between items-center w-full mb-3">
+                        <span class="text-[9px] text-blue-400/70 font-mono font-bold tracking-widest">NO. ${String(item.no).padStart(2, '0')}</span>
+                        <span class="text-[9px] ${item.kategori === 'AP' ? 'text-blue-400 bg-blue-950/40' : 'text-purple-400 bg-purple-950/40'} px-2 py-0.5 rounded font-bold uppercase tracking-wider">${item.kategori === 'AP' ? 'Koding' : 'AI'}</span>
+                    </div>
+                    
+                    <h3 class="text-xs md:text-sm font-bold leading-snug text-slate-100 uppercase tracking-tight line-clamp-2 h-10 group-hover:text-white transition-colors">
+                        ${item.judul}
+                    </h3>
+                    
+                    <div class="mt-4 w-full pt-3 border-t border-slate-800/60 flex flex-col gap-1 items-center justify-center">
+                        <span class="text-[10px] ${badgeClass} px-2.5 py-0.5 rounded-full font-mono font-semibold">${item.tingkat} | ${item.ranah.split(' ')[0]}</span>
+                    </div>
+                `;
+
+                // Setup dynamic event listeners
+                gridItem.onmouseenter = playHoverSound;
+                gridItem.onclick = () => {
+                    playClickSound();
+                    openModal(item);
+                };
+
+                container.appendChild(gridItem);
+            });
+        }
+
+        // Filter actions
+        function applyFilter(filterType, element) {
+            playClickSound();
+            currentFilter = filterType;
+            
+            // Remove active classes from all buttons
+            document.querySelectorAll('.filter-btn').forEach(btn => {
+                btn.className = "filter-btn px-4 py-2 text-xs font-bold rounded-xl uppercase tracking-wider bg-slate-800/80 text-slate-300 border border-slate-700/50 hover:bg-slate-700 hover:text-white transition-all";
+            });
+
+            // Set active class
+            element.className = "filter-btn px-4 py-2 text-xs font-bold rounded-xl uppercase tracking-wider bg-blue-600 text-white shadow-lg shadow-blue-500/25 transition-all";
+
+            renderGrid();
+        }
+
+        // Realtime Search event listener
+        searchInput.addEventListener('input', (e) => {
+            searchQuery = e.target.value;
+            renderGrid();
+        });
+
+        // Modal System Logic
+        const detailModal = document.getElementById('detailModal');
+        const modalContainer = document.getElementById('modalContainer');
+
+        function openModal(item) {
+            // Fill details
+            document.getElementById('modalMeta').innerText = `SOAL - ${String(item.no).padStart(2, '0')} (${item.kategori === 'AP' ? 'KODING' : 'KECERDASAN ARTIFISIAL'})`;
+            document.getElementById('modalTitle').innerText = item.judul;
+            document.getElementById('modalCP').innerText = item.cp;
+            document.getElementById('modalTP').innerText = item.tp;
+            document.getElementById('modalTingkat').innerText = item.tingkat;
+            document.getElementById('modalRanah').innerText = item.ranah;
+            document.getElementById('modalKisi').innerText = item.kisi;
+
+            // Make Visible
+            detailModal.classList.remove('pointer-events-none', 'opacity-0');
+            detailModal.classList.add('opacity-100');
+            
+            // Transform popup pop-in
+            modalContainer.classList.remove('scale-95');
+            modalContainer.classList.add('scale-100');
+        }
+
+        function closeModal() {
+            playClickSound();
+            detailModal.classList.add('pointer-events-none', 'opacity-0');
+            detailModal.classList.remove('opacity-100');
+            
+            modalContainer.classList.remove('scale-100');
+            modalContainer.classList.add('scale-95');
+        }
+
+        // Close on clicking outside container
+        detailModal.addEventListener('click', (e) => {
+            if (e.target === detailModal) {
+                closeModal();
+            }
+        });
+
+        // Neural Synapse floating node particle system
+        const canvas = document.getElementById('neuralCanvas');
+        const ctx = canvas.getContext('2d');
+
+        let particles = [];
+        let connectionDistance = 110;
+
+        function resizeCanvas() {
+            canvas.width = window.innerWidth;
+            canvas.height = window.innerHeight;
+            initParticles();
+        }
+
+        class Particle {
+            constructor() {
+                this.x = Math.random() * canvas.width;
+                this.y = Math.random() * canvas.height;
+                this.vx = (Math.random() - 0.5) * 0.4;
+                this.vy = (Math.random() - 0.5) * 0.4;
+                this.radius = Math.random() * 2 + 1;
+            }
+
+            update() {
+                this.x += this.vx;
+                this.y += this.vy;
+
+                if (this.x < 0 || this.x > canvas.width) this.vx *= -1;
+                if (this.y < 0 || this.y > canvas.height) this.vy *= -1;
+            }
+
+            draw() {
+                ctx.beginPath();
+                ctx.arc(this.x, this.y, this.radius, 0, Math.PI * 2);
+                ctx.fillStyle = 'rgba(59, 130, 246, 0.4)';
+                ctx.fill();
+            }
+        }
+
+        function initParticles() {
+            particles = [];
+            const particleCount = Math.min(Math.floor((canvas.width * canvas.height) / 12000), 80);
+            for (let i = 0; i < particleCount; i++) {
+                particles.push(new Particle());
+            }
+        }
+
+        function animateParticles() {
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+            
+            particles.forEach(p => {
+                p.update();
+                p.draw();
+            });
+
+            // Draw connecting web lines
+            for (let i = 0; i < particles.length; i++) {
+                for (let j = i + 1; j < particles.length; j++) {
+                    const dx = particles[i].x - particles[j].x;
+                    const dy = particles[i].y - particles[j].y;
+                    const dist = Math.sqrt(dx * dx + dy * dy);
+
+                    if (dist < connectionDistance) {
+                        ctx.beginPath();
+                        ctx.moveTo(particles[i].x, particles[i].y);
+                        ctx.lineTo(particles[j].x, particles[j].y);
+                        const alpha = (1 - dist / connectionDistance) * 0.15;
+                        ctx.strokeStyle = `rgba(139, 92, 246, ${alpha})`;
+                        ctx.lineWidth = 0.8;
+                        ctx.stroke();
+                    }
+                }
+            }
+
+            requestAnimationFrame(animateParticles);
+        }
+
+        // Initialize application events
+        window.onload = function() {
+            resizeCanvas();
+            renderGrid();
+            window.addEventListener('resize', resizeCanvas);
+            animateParticles();
+        };
+    </script>
+</body>
+</html>
