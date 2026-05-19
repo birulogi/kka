@@ -7,34 +7,23 @@
     <script src="https://cdn.tailwindcss.com"></script>
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <style>
-        /* CSS UTMA UNTUK AUTO-RESIZE & ANTI-SCROLLBAR */
-        textarea {
-            resize: none;            /* Menghilangkan tombol tarik manual di pojok kanan bawah */
-            overflow: hidden;        /* Menghilangkan scrollbar secara total */
-            word-wrap: break-word;   /* Memaksa teks bungkus ke bawah jika terlalu panjang */
-            min-height: 80px;        /* Tinggi minimal awal */
-        }
-
-        /* Optimasi khusus saat cetak ke PDF */
+        /* Optimasi cetak */
         @media print {
             .no-print { display: none; }
             body { background-color: white; padding: 0; }
             .container { box-shadow: none; margin: 0; width: 100%; max-width: 100%; border: none; }
-            
-            /* Memastikan saat cetak, tinggi textbox benar-benar pas dengan teks dan tidak terpotong */
-            textarea { 
-                border: 1px solid #ccc !important; 
-                height: auto !important; 
-                overflow: hidden !important;
-            }
-            
-            select, input { border: 1px solid #ccc !important; }
+            textarea, select, input { border: 1px solid #ccc !important; }
         }
-        
         /* Penyesuaian baris tabel di smartphone */
         th, td { min-width: 120px; }
         .prompt-col { min-width: 200px; }
         .table-responsive { overflow-x: auto; -webkit-overflow-scrolling: touch; }
+        
+        /* Mencegah scrollbar vertikal muncul saat resize otomatis dan membatasi ukuran awal */
+        textarea {
+            resize: none;
+            overflow-y: hidden;
+        }
     </style>
 </head>
 <body class="bg-blue-900 min-h-screen p-2 md:p-4 font-sans text-gray-800">
@@ -108,7 +97,7 @@
                                     </select>
                                 </td>
                                 <td class="p-2 border-r">
-                                    <textarea id="h_1" oninput="autoResize(this)" placeholder="Salin jawaban KA di sini..." class="w-full border rounded p-1.5 outline-none focus:ring-1 focus:ring-blue-500 text-[11px] auto-resize"></textarea>
+                                    <textarea id="h_1" oninput="autoResize(this)" placeholder="Salin jawaban KA di sini..." class="w-full border rounded p-1.5 h-24 outline-none focus:ring-1 focus:ring-blue-500 text-[11px] auto-resize"></textarea>
                                 </td>
                                 <td class="p-2 text-center">
                                     <select id="ak_1" class="w-full p-1 border rounded text-[11px] bg-white">
@@ -126,7 +115,7 @@
                                     </select>
                                 </td>
                                 <td class="p-2 border-r">
-                                    <textarea id="h_2" oninput="autoResize(this)" placeholder="Salin jawaban KA di sini..." class="w-full border rounded p-1.5 outline-none focus:ring-1 focus:ring-blue-500 text-[11px] auto-resize"></textarea>
+                                    <textarea id="h_2" oninput="autoResize(this)" placeholder="Salin jawaban KA di sini..." class="w-full border rounded p-1.5 h-24 outline-none focus:ring-1 focus:ring-blue-500 text-[11px] auto-resize"></textarea>
                                 </td>
                                 <td class="p-2 text-center">
                                     <select id="ak_2" class="w-full p-1 border rounded text-[11px] bg-white">
@@ -144,7 +133,7 @@
                                     </select>
                                 </td>
                                 <td class="p-2 border-r">
-                                    <textarea id="h_3" oninput="autoResize(this)" placeholder="Salin jawaban KA di sini..." class="w-full border rounded p-1.5 outline-none focus:ring-1 focus:ring-blue-500 text-[11px] auto-resize"></textarea>
+                                    <textarea id="h_3" oninput="autoResize(this)" placeholder="Salin jawaban KA di sini..." class="w-full border rounded p-1.5 h-24 outline-none focus:ring-1 focus:ring-blue-500 text-[11px] auto-resize"></textarea>
                                 </td>
                                 <td class="p-2 text-center">
                                     <select id="ak_3" class="w-full p-1 border rounded text-[11px] bg-white">
@@ -164,11 +153,11 @@
                 <div class="grid grid-cols-1 gap-4">
                     <div class="p-3 border rounded-lg bg-gray-50">
                         <label class="block text-xs font-bold mb-2">a. Menurutmu, risiko apa yang timbul jika seseorang langsung mempercayai jawaban model KA tanpa memverifikasi?</label>
-                        <textarea id="da" oninput="autoResize(this)" class="w-full border p-2 rounded text-xs outline-none focus:ring-1 focus:ring-blue-400 auto-resize"></textarea>
+                        <textarea id="da" oninput="autoResize(this)" class="w-full border p-2 rounded h-20 text-xs outline-none focus:ring-1 focus:ring-blue-400 auto-resize"></textarea>
                     </div>
                     <div class="p-3 border rounded-lg bg-gray-50">
                         <label class="block text-xs font-bold mb-2">b. Apa yang dapat kamu lakukan untuk menjadi pengguna KA yang cerdas dan kritis?</label>
-                        <textarea id="db" oninput="autoResize(this)" class="w-full border p-2 rounded text-xs outline-none focus:ring-1 focus:ring-blue-400 auto-resize"></textarea>
+                        <textarea id="db" oninput="autoResize(this)" class="w-full border p-2 rounded h-20 text-xs outline-none focus:ring-1 focus:ring-blue-400 auto-resize"></textarea>
                     </div>
                 </div>
             </section>
@@ -188,17 +177,10 @@
     </div>
 
     <script>
-        // Fungsi utama untuk mengatur tinggi dinamis textbox secara instan
+        // Fungsi untuk membuat textarea otomatis meluas ke bawah
         function autoResize(el) {
-            el.style.height = 'auto'; // Reset tinggi ke bawaan dahulu
-            el.style.height = el.scrollHeight + 'px'; // Atur tinggi baru sesuai total tinggi teks di dalamnya
-        }
-
-        // Jalankan fungsi auto-resize untuk semua textarea yang memiliki class .auto-resize
-        function refreshAllTextareas() {
-            document.querySelectorAll('.auto-resize').forEach(textarea => {
-                autoResize(textarea);
-            });
+            el.style.height = 'auto';
+            el.style.height = el.scrollHeight + 'px';
         }
 
         function syncNamesToRoles() {
@@ -256,14 +238,14 @@
                         document.getElementById(`ak_${id}`).value = r.ak || '';
                     }
                 });
-            }
-            // Trigger auto-resize sesaat setelah halaman selesai memuat data simpanan
-            setTimeout(refreshAllTextareas, 100);
-        };
 
-        // Tambahan: Pastikan ukuran textbox disesuaikan ulang sesaat sebelum perintah cetak PDF dijalankan browser
-        window.onbeforeprint = () => {
-            refreshAllTextareas();
+                // Trigger autoResize untuk memicu kecocokan tinggi elemen saat reload data simpanan
+                document.querySelectorAll('.auto-resize').forEach(textarea => {
+                    if (textarea.value.trim() !== "") {
+                        autoResize(textarea);
+                    }
+                });
+            }
         };
     </script>
 </body>
