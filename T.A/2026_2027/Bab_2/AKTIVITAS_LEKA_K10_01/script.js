@@ -11,7 +11,7 @@ const MASTER_DATA_40_GAMBAR = [
     { id: 3, name: "Apel", type: "ASLI", category: "Buah", pattern: "Kulit buah memiliki serat gradasi warna tidak merata alami dan sedikit pudar.", driveId: "1RYgZWO4CCgZD2yfqLR1HZBzy8i4aQkGU" },
     { id: 4, name: "Apel", type: "AI", category: "Buah", pattern: "Tetesan air pada kulit apel berbentuk bulat sempurna yang berulang simetris.", driveId: "1NbJ_sJDPbLfKWU_yFrPoYl7BtmQaKNcq" },
     { id: 5, name: "Harimau", type: "AI", category: "Hewan", pattern: "Pola loreng pada bulu tampak terlalu simetris, rapi berulang, dan detail fokus yang tidak alami.", driveId: "1kCgXpO_jdkq-_khNkGW2YqVVZJtHstLb" },
-    { id: 6, name: "Harimau", type: "ASLI", category: "Hewan", pattern: "loreng pada tubuh memiliki bentuk acak, tidak beraturan secara alami, dan tekstur bulu memiliki variasi tingkat ketajaman alami.", driveId: "1LCjBRFL9FxHcZaB6qVpEIUtHpX55i6x8" },
+    { id: 6, name: "Harimau", type: "ASLI", category: "Hewan", pattern: "Pola loreng pada tubuh memiliki bentuk acak, tidak beraturan secara alami, dan tekstur bulu memiliki variasi tingkat ketajaman alami.", driveId: "1LCjBRFL9FxHcZaB6qVpEIUtHpX55i6x8" },
     { id: 7, name: "Burung", type: "AI", category: "Hewan", pattern: "Helai bulu burung terlihat seperti lukisan digital halus bercahaya.", driveId: "1WaL_c3tlF_fM7Qj6DJYKBE8LTb1XB3FZ" },
     { id: 8, name: "Burung", type: "ASLI", category: "Hewan", pattern: "Bentuk paruh dan susunan bulu sayap alami khas satwa liar.", driveId: "1uMMIxXLO-PFhLmKBVxbUCzwQUREy5e-C" },
     { id: 9, name: "Gajah", type: "AI", category: "Hewan", pattern: "Tekstur kerutan kulit gajah tampak kaku dan pola gading terlalu berkilau.", driveId: "1_E8PDbuWYrUK0ChEiF_Bhr9YOdApe3XK" },
@@ -103,7 +103,7 @@ function switchTab(tabName) {
     }
 }
 
-// Render Katalog POLOS (Murid tidak dapat melihat bocoran nama/kategori/AI-ASLI)
+// Render Katalog POLOS dengan fitur Lightbox saat diklik
 function renderPlainCatalog() {
     const galleryContainer = document.getElementById('galleryContainer');
     galleryContainer.innerHTML = '';
@@ -111,14 +111,18 @@ function renderPlainCatalog() {
     MASTER_DATA_40_GAMBAR.forEach((item, index) => {
         const imgUrl = getDriveImageUrl(item.driveId);
         const card = document.createElement('div');
-        card.className = "gallery-card bg-slate-900 border border-slate-700/80 rounded-2xl p-2.5 flex flex-col items-center justify-center text-center relative overflow-hidden group";
-        
+        card.className = "gallery-card bg-slate-900 border border-slate-700/80 rounded-2xl p-2.5 flex flex-col items-center justify-center text-center relative overflow-hidden group cursor-pointer";
+        card.onclick = () => openLightbox(imgUrl, `Gambar #${index + 1}`);
+
         card.innerHTML = `
             <div class="relative w-full aspect-square bg-slate-950 rounded-xl overflow-hidden mb-2 border border-slate-800 flex items-center justify-center p-1">
-                <img src="${imgUrl}" alt="Gambar Pembelajaran ${index + 1}" class="max-h-full max-w-full object-contain rounded-lg">
+                <img src="${imgUrl}" alt="Gambar Pembelajaran ${index + 1}" class="max-h-full max-w-full object-contain rounded-lg transition-transform duration-300 group-hover:scale-105">
                 <span class="absolute top-1.5 left-1.5 bg-slate-800/90 border border-slate-600 text-blue-400 text-[10px] font-extrabold px-2 py-0.5 rounded shadow">
                     #${index + 1}
                 </span>
+                <div class="absolute inset-0 bg-slate-950/40 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center">
+                    <i class="fa-solid fa-magnifying-glass-plus text-white text-xl drop-shadow"></i>
+                </div>
             </div>
             <p class="font-bold text-xs text-slate-300">Gambar #${index + 1}</p>
         `;
@@ -313,7 +317,6 @@ function processQuestionAnswer() {
     const isPatternCorrect = (selectedPatternChoice === currentQ.pattern);
     const isPerfect = isObjectCorrect && isPatternCorrect;
 
-    // Bobot Nilai Auto-scale ke 100 Poin
     const pointPerQuestion = 100 / questionsList.length;
     const pointsAwarded = isPerfect ? pointPerQuestion : 0;
 
@@ -355,7 +358,6 @@ function finishGameAndShowResults() {
     });
 }
 
-// Secret Admin Access via Triple Click
 function handleSecretBirulogiClick() {
     secretClickCounter++;
     if (secretClickCounter === 1) {
@@ -418,6 +420,7 @@ function requestAdminAccess() {
     });
 }
 
+// Render Tabel Admin dengan preview gambar yang bisa diklik untuk Lightbox
 function renderAdminTable() {
     const tbody = document.getElementById('adminTableBody');
     tbody.innerHTML = '';
@@ -430,7 +433,7 @@ function renderAdminTable() {
         tr.innerHTML = `
             <td class="p-3 text-center font-bold text-slate-400">${idx + 1}</td>
             <td class="p-3">
-                <img src="${imgUrl}" alt="${item.name}" class="w-12 h-12 object-contain rounded-lg bg-slate-950 border border-slate-700 p-1">
+                <img src="${imgUrl}" alt="${item.name}" onclick="openLightbox('${imgUrl}', '${item.name} (${item.type})')" class="w-12 h-12 object-contain rounded-lg bg-slate-950 border border-slate-700 p-1 cursor-pointer hover:border-blue-400 hover:scale-105 transition-all">
             </td>
             <td class="p-3 font-bold text-white">${item.name}</td>
             <td class="p-3">
