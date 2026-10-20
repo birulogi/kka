@@ -8,7 +8,7 @@
 const MASTER_DATA_40_GAMBAR = [
     { id: 1, name: "Anggur", type: "AI", category: "Buah", pattern: "Butiran anggur mengilap hiper-realistis tanpa lapisan bedak alami kulit anggur.", driveId: "1PIEEqNcR_qtOX9qkEPELMCYR0Tm-wa86" },
     { id: 2, name: "Anggur", type: "ASLI", category: "Buah", pattern: "Gugusan anggur dengan ukuran butiran bervariasi dan lapisan lilin tipis alami.", driveId: "1Kn3QPuRUJpZDNd760oW9GVZtmZ3EHN5v" },
-   { id: 3, name: "Apel", type: "ASLI", category: "Buah", pattern: "Kulit buah memiliki serat gradasi warna tidak merata alami dan sedikit pudar.", driveId: "1RYgZWO4CCgZD2yfqLR1HZBzy8i4aQkGU" },
+    { id: 3, name: "Apel", type: "ASLI", category: "Buah", pattern: "Kulit buah memiliki serat gradasi warna tidak merata alami dan sedikit pudar.", driveId: "1RYgZWO4CCgZD2yfqLR1HZBzy8i4aQkGU" },
     { id: 4, name: "Apel", type: "AI", category: "Buah", pattern: "Tetesan air pada kulit apel berbentuk bulat sempurna yang berulang simetris.", driveId: "1NbJ_sJDPbLfKWU_yFrPoYl7BtmQaKNcq" },
     { id: 5, name: "Harimau", type: "AI", category: "Hewan", pattern: "Pola loreng pada bulu tampak terlalu simetris, rapi berulang, dan detail fokus yang tidak alami.", driveId: "13kIM91_hKBveD5PPa5BcXgjlstdsEucd" },
     { id: 6, name: "Harimau", type: "ASLI", category: "Hewan", pattern: "loreng pada tubuh memiliki bentuk acak, tidak beraturan secara alami, dan tekstur bulu memiliki variasi tingkat ketajaman alami.", driveId: "1mSpu3y8KzYmqunQZW4a_xS6XKmUMxBA7" },
@@ -50,7 +50,7 @@ const MASTER_DATA_40_GAMBAR = [
 
 const NAMA_OBJEK_UNIK = [
     "Kucing", "Apel", "Segitiga", "Ikan", "Pisang", 
-    "Lingkaran", "Burung", "Jeruk", "Persegi", "Bintang", 
+    "Lingkaran", "Burung", "Jeruk", "Persegi", "Harimau", 
     "Kupu-kupu", "Mangga", "Oval / Elips", "Gajah", "Semangka", 
     "Segi Lima (Pentagon)", "Kelinci", "Anggur", "Belah Ketupat", "Jerapah"
 ];
